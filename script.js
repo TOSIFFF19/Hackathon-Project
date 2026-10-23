@@ -1321,7 +1321,53 @@ document.querySelectorAll(".category-filter").forEach((button) => {
 
 const navToggle = document.querySelector("#nav-toggle");
 const navLinks = document.querySelector("#nav-links");
+const navHoverBg = navLinks.querySelector(".nav-hover-bg");
+const navItems = navLinks.querySelectorAll(".nav-link");
 const navCta = document.querySelector(".nav-cta");
+const themeToggle = document.querySelector("#theme-toggle");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+function showNavHover(link) {
+  if (window.innerWidth <= 700) return;
+  navHoverBg.style.width = `${link.offsetWidth}px`;
+  navHoverBg.style.height = `${link.offsetHeight}px`;
+  navHoverBg.style.transform = `translate3d(${link.offsetLeft}px, ${link.offsetTop}px, 0)`;
+  navLinks.classList.add("has-active-link");
+}
+
+function hideNavHover() {
+  navLinks.classList.remove("has-active-link");
+}
+
+navItems.forEach((link) => {
+  link.addEventListener("pointerenter", () => showNavHover(link));
+  link.addEventListener("focus", () => showNavHover(link));
+});
+navLinks.addEventListener("pointerleave", hideNavHover);
+navLinks.addEventListener("focusout", (event) => {
+  if (!navLinks.contains(event.relatedTarget)) hideNavHover();
+});
+
+function updateThemeToggle(theme) {
+  const nextTheme = theme === "dark" ? "light" : "dark";
+  themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
+  themeToggle.title = `Switch to ${nextTheme} theme`;
+  themeColorMeta.content = theme === "dark" ? "#101713" : "#f8faf7";
+}
+
+updateThemeToggle(document.documentElement.dataset.theme);
+
+themeToggle.addEventListener("click", () => {
+  const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = theme;
+  updateThemeToggle(theme);
+  try {
+    localStorage.setItem("spectra-theme", theme);
+  } catch (error) {
+    console.warn("Could not save the theme preference.", error);
+  }
+  if (window.innerWidth <= 700) closeNavigation();
+});
 
 function closeNavigation() {
   navToggle.setAttribute("aria-expanded", "false");
