@@ -1264,9 +1264,12 @@ function beginAssessment(resetAnswers) {
 function initializeQuiz() {
   if (!quizForm || !quizStart) return;
   if (profileForm) {
+    const listFields = new Set(["interests", "skills", "favouriteSubjects", "difficultSubjects", "goals"]);
     Array.from(profileForm.elements).forEach((field) => {
       if (!field.name || !(field.name in profile)) return;
-      field.value = Array.isArray(profile[field.name]) ? profile[field.name].join(", ") : profile[field.name];
+      field.value = listFields.has(field.name) && Array.isArray(profile[field.name])
+        ? profile[field.name].join(", ")
+        : profile[field.name];
     });
     profileForm.addEventListener("input", () => {
       profile = readProfile();
@@ -1297,6 +1300,14 @@ function initializeQuiz() {
     currentQuestion = 0;
     assessmentComplete = false;
     persistSessionState();
+    setQuizVisible(true);
+  } else if (params.has("start")) {
+    if (assessmentComplete) {
+      quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
+      currentQuestion = 0;
+      assessmentComplete = false;
+      persistSessionState();
+    }
     setQuizVisible(true);
   } else if (!assessmentComplete && quizAnswers.some(Number.isInteger)) {
     setQuizVisible(true);
