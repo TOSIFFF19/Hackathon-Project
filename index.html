@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f8fc">
+  <meta name="theme-color" content="#f8faf7">
   <meta name="description" content="Explore career paths that connect your interests, skills, and goals with AI Career Navigator.">
   <title>AI Career Navigator — Find your direction</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="glass-prism.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -25,88 +27,86 @@
         <span>career<span class="brand-accent">path</span></span>
       </a>
 
-      <div class="nav-links">
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
         <a href="#home">Home</a>
+        <a href="#careers">Explore careers</a>
         <a href="#how-it-works">How it works</a>
-        <a href="#discover-yourself">Discover yourself</a>
-        <a href="#careers">Career explorer</a>
-        <a href="#careers">Learning roadmaps</a>
+        <a href="#learning-resources">Learning resources</a>
       </div>
 
-      <a class="button button-small button-outline nav-cta" href="#careers">Explore paths <span aria-hidden="true">↗</span></a>
+      <a class="button button-small button-primary nav-cta" href="#discover-yourself">Find my career <span aria-hidden="true">→</span></a>
     </nav>
   </header>
 
   <main>
-    <section class="hero section-shell" id="home">
-      <div class="hero-content container">
-        <div class="hero-copy">
-          <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR NEXT CHAPTER STARTS HERE</span>
-          <h1>Your future has <span class="highlight">more than one path.</span></h1>
-          <p class="hero-description">Explore your interests, discover careers across different fields, and find practical next steps—even if you don't know where to begin.</p>
-          <div class="hero-actions">
-            <a class="button button-primary explore-button" href="#discover-yourself">
-              Discover my career path <span class="button-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="text-link" href="#careers">Explore all careers <span aria-hidden="true">↓</span></a>
-          </div>
-          <div class="hero-note">
-            <span class="note-icon" aria-hidden="true">✦</span>
-            <span>A little clarity can take you a long way.</span>
+    <section class="hero prism-hero" id="home">
+      <div class="prism-stage" id="prism-stage">
+        <canvas class="prism-atmosphere" id="prism-atmosphere" aria-hidden="true"></canvas>
+        <h1 class="visually-hidden">Your future isn't one path.</h1>
+        <div class="prism-copy">
+          <span class="prism-eyebrow"><span class="eyebrow-dot"></span> CAREER EXPLORATION FOR EVERY STARTING POINT</span>
+          <div class="prism-bottom-copy">
+            <p class="hero-description">Explore career paths that align with your interests, skills, education, and goals. Discover your strengths and build a roadmap for your future.</p>
+            <div class="hero-actions">
+              <a class="button button-primary explore-button" href="#discover-yourself">
+                Find my career <span class="button-arrow" aria-hidden="true">→</span>
+              </a>
+              <a class="text-link" href="#careers">Explore careers <span aria-hidden="true">↓</span></a>
+            </div>
           </div>
         </div>
-
-        <div class="hero-art" aria-hidden="true">
-          <div class="art-orbit orbit-one"></div>
-          <div class="art-orbit orbit-two"></div>
-          <div class="art-spark spark-one">✦</div>
-          <div class="art-spark spark-two">✧</div>
-          <div class="art-card art-card-main">
-            <div class="art-card-top"><span class="mini-avatar">✳</span><span class="art-label">YOUR FUTURE, IN FOCUS</span></div>
-            <div class="art-title">A path of<br><span>possibilities.</span></div>
-            <div class="path-graphic">
-              <span class="path-node node-a"></span>
-              <span class="path-node node-b"></span>
-              <span class="path-node node-c"></span>
-              <span class="path-node node-d"></span>
-              <svg viewBox="0 0 280 110" preserveAspectRatio="none">
-                <path d="M8 87C54 87 48 25 105 36s54 68 97 38 43-44 70-56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8"/>
-              </svg>
-            </div>
-            <div class="art-card-footer"><span>INTERESTS</span><span>SKILLS</span><span>GOALS</span></div>
-          </div>
-          <div class="floating-tag tag-top"><span>◎</span> Start with what you love</div>
-          <div class="floating-tag tag-bottom"><span>↗</span> Your journey, your way</div>
+        <div class="prism-scroll-hint" id="prism-scroll-hint" aria-hidden="true">
+          <span class="prism-scroll-wheel"></span>
+          <span id="prism-scroll-label">Scroll to rotate</span>
         </div>
       </div>
-      <div class="hero-bottom container"><span>CURIOUS ABOUT WHAT’S NEXT?</span><span class="hero-bottom-line"></span><span>EXPLORE THE POSSIBILITIES</span></div>
+      <button class="prism-replay" id="prism-replay" type="button">Replay light</button>
     </section>
 
     <section class="how-section section-pad" id="how-it-works">
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">A SIMPLE PLACE TO BEGIN</span>
-          <h2>Career discovery, <span class="highlight">made clearer.</span></h2>
-          <p>Big decisions don’t have to feel overwhelming. Take it one thoughtful step at a time.</p>
+          <span class="eyebrow">A CLEARER WAY FORWARD</span>
+          <h2>Explore with confidence, <span class="highlight">one step at a time.</span></h2>
+          <p>Start with what matters to you, learn about real career paths, and choose a practical next step.</p>
         </div>
         <div class="steps-grid">
           <article class="step-card">
-            <div class="step-number">01 <span class="step-icon" aria-hidden="true">◉</span></div>
-            <h3>Get to know yourself</h3>
-            <p>Reflect on your interests, favourite subjects, skills, and the kind of future you want.</p>
-            <span class="step-connector" aria-hidden="true">······→</span>
+            <div class="step-number">01 <span class="step-icon" aria-hidden="true"></span></div>
+            <h3>Discover yourself</h3>
+            <p>Answer questions about your interests, skills, subjects, education, and goals.</p>
+            <span class="step-connector" aria-hidden="true">→</span>
           </article>
           <article class="step-card">
-            <div class="step-number">02 <span class="step-icon" aria-hidden="true">⌕</span></div>
-            <h3>Explore career paths</h3>
-            <p>Learn about different fields and the work, ideas, and opportunities within them.</p>
-            <span class="step-connector" aria-hidden="true">······→</span>
+            <div class="step-number">02 <span class="step-icon" aria-hidden="true"></span></div>
+            <h3>Explore your matches</h3>
+            <p>Review career ideas with explanations based on the answers you shared.</p>
+            <span class="step-connector" aria-hidden="true">→</span>
           </article>
           <article class="step-card">
-            <div class="step-number">03 <span class="step-icon" aria-hidden="true">↗</span></div>
-            <h3>Plan your next step</h3>
-            <p>Use what you learn to start building skills and move forward with more confidence.</p>
+            <div class="step-number">03 <span class="step-icon" aria-hidden="true"></span></div>
+            <h3>Build your roadmap</h3>
+            <p>Explore useful skills, beginner projects, study pathways, and free learning resources.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits-section section-pad" id="why-career-navigator">
+      <div class="container benefits-layout">
+        <div class="section-heading section-heading-left">
+          <span class="eyebrow">A THOUGHTFUL START</span>
+          <h2>Useful guidance, <span class="highlight">without the guesswork.</span></h2>
+          <p>Career exploration is personal. This tool helps you compare possibilities and decide what you want to learn next.</p>
+        </div>
+        <div class="benefit-list">
+          <article class="benefit-item"><span>01</span><div><h3>Based on your profile</h3><p>Your interests and preferences shape the career ideas you see.</p></div></article>
+          <article class="benefit-item"><span>02</span><div><h3>Explanations you can review</h3><p>See how your responses relate to each suggestion and its match score.</p></div></article>
+          <article class="benefit-item"><span>03</span><div><h3>Practical next steps</h3><p>Find skills to explore, beginner projects, education notes, and free resources.</p></div></article>
         </div>
       </div>
     </section>
@@ -114,9 +114,9 @@
     <section class="finder-section section-pad" id="discover-yourself">
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">A PLACE FOR EVERY STARTING POINT</span>
-          <h2>Your education <span class="highlight">&amp; background.</span></h2>
-          <p>Tell us what feels relevant. You can skip any detail; your current stream informs pathways, not which careers you may explore.</p>
+          <span class="eyebrow">START WITH YOUR CONTEXT</span>
+          <h2>Your background <span class="highlight">is part of your story.</span></h2>
+          <p>Share whichever details feel useful. Your education informs pathway notes; it does not limit which careers you may explore.</p>
         </div>
         <form class="finder-form" id="profile-form">
           <div class="form-field">
@@ -199,28 +199,26 @@
     <section class="quiz-section section-pad" id="career-finder">
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">PERSONALISED CAREER EXPLORATION</span>
-          <h2>Discover Your Strengths <span class="highlight">— 10 Questions</span></h2>
+          <span class="eyebrow">YOUR CAREER DISCOVERY</span>
+          <h2>Start with what <span class="highlight">interests you.</span></h2>
           <p>You don't need to know your dream career yet. Answer these questions honestly to explore your interests, preferred working style, possible strengths, and career directions worth investigating.</p>
         </div>
         <form class="quiz-panel" id="career-quiz" hidden novalidate>
           <div class="quiz-progress-row">
-            <span class="quiz-progress-label" id="quiz-progress-label">Question 1 of 10</span>
-            <span class="quiz-progress-hint">Choose one answer</span>
+            <span class="quiz-progress-label" id="quiz-progress-label" aria-live="polite">Question 1 of 10</span>
+            <span class="quiz-progress-hint">Choose one rating to continue</span>
           </div>
           <progress class="quiz-progress" id="quiz-progress" max="10" value="1" aria-label="Quiz progress"></progress>
           <div id="quiz-question" class="quiz-question" role="group" aria-labelledby="quiz-question-title"></div>
-          <p class="quiz-error" id="quiz-error" role="alert" hidden>Please choose one answer before continuing.</p>
+          <p class="quiz-error" id="quiz-error" role="alert" hidden>Please select a rating to continue.</p>
           <div class="quiz-actions">
             <button class="button button-outline" id="quiz-back" type="button">← Back</button>
-            <button class="button button-primary" id="quiz-next" type="button">Next question →</button>
-            <button class="button button-primary" id="quiz-submit" type="submit" hidden>Show my exploration results →</button>
           </div>
-          <p class="quiz-disclaimer">These answers describe preferences you chose today—not a scientific aptitude or personality assessment.</p>
+          <p class="quiz-disclaimer">Scale: Strongly Disagree · Disagree · Neutral / Not Sure · Agree · Strongly Agree. Answers describe your preferences today—not verified ability or a clinical assessment.</p>
         </form>
         <div class="quiz-start" id="quiz-start">
           <button class="button button-primary" id="start-quiz" type="button">Start the 10-question quiz <span class="button-arrow" aria-hidden="true">→</span></button>
-          <p>All quiz questions are required. You can go back and change answers before viewing results.</p>
+          <p>10 short statements · 5-point scale · go back any time to change an answer.</p>
         </div>
         <section class="results-dashboard" id="results-dashboard" aria-labelledby="results-title" hidden>
           <div class="results-heading">
@@ -248,7 +246,7 @@
           </div>
           <div class="results-heading">
             <h3>Your possible career directions</h3>
-            <p>Scores combine quiz-interest overlap (70%) with comparable optional profile tags (30%, when available). They are exploratory tag overlap—not odds of success, ability measures, or professional assessments. Career titles describe fields or occupations, not degree programs, entrance exams, or qualifications.</p>
+            <p>Each interest dimension averages the ratings (1–5) of statements mapped to it, then converts that mean using ((mean − 1) ÷ 4) × 100. Neutral maps to 50, not a weakness. Career scores average the mapped dimension percentages; when profile tags are comparable, the score is 70% quiz and 30% profile overlap. The profile component compares provided interests, skills, subjects, and goals with tags in each career profile. These are exploratory preferences—not ability measures or success odds. Career titles describe fields or occupations, not degree programs, entrance exams, or qualifications.</p>
           </div>
           <div class="career-grid recommendation-grid" id="recommendation-results" aria-live="polite"></div>
           <section class="alternative-section" id="alternative-section">
@@ -284,19 +282,40 @@
       <div class="container">
         <div class="careers-heading">
           <div class="section-heading section-heading-left">
-            <span class="eyebrow">ROOM TO FIND YOUR THING</span>
-            <h2>Explore fields that <span class="highlight">spark curiosity.</span></h2>
-            <p>Search career titles, related skills, and fields across different educational backgrounds.</p>
+            <span class="eyebrow">CAREER EXPLORER</span>
+            <h2>Explore careers <span class="highlight">across fields.</span></h2>
+            <p>Search real career profiles, skills, and learning pathways. Browse widely and follow what catches your interest.</p>
           </div>
           <span class="category-count" id="career-count"></span>
+        </div>
+        <div class="career-category-filter" role="group" aria-label="Filter career categories">
+          <button class="category-filter is-active" type="button" data-categories="all" aria-pressed="true">All careers</button>
+          <button class="category-filter" type="button" data-categories="technology">Technology &amp; AI</button>
+          <button class="category-filter" type="button" data-categories="science,environment">Science &amp; research</button>
+          <button class="category-filter" type="button" data-categories="business,business_finance">Business &amp; finance</button>
+          <button class="category-filter" type="button" data-categories="creative,design_engineering">Design &amp; creative</button>
+          <button class="category-filter" type="button" data-categories="healthcare,education,social_science">People &amp; wellbeing</button>
+          <button class="category-filter" type="button" data-categories="law_governance,vocational">Public service &amp; skilled work</button>
         </div>
         <div class="search-field">
           <label for="career-search">Search careers</label>
           <input id="career-search" type="search" placeholder="Try a title, skill, or domain" autocomplete="off">
         </div>
         <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+        <p class="resource-intro" id="learning-resources">Open a career profile to explore its learning roadmap, beginner projects, and free resources.</p>
         <div class="career-grid" id="career-results" aria-live="polite"></div>
         <p class="careers-footnote"><span aria-hidden="true">✦</span> Starting points for exploration—not promises about a career outcome.</p>
+      </div>
+    </section>
+
+    <section class="final-cta section-pad">
+      <div class="container final-cta-inner">
+        <div>
+          <span class="eyebrow">YOUR NEXT STEP CAN START HERE</span>
+          <h2>Ready to explore <span class="highlight">what fits you?</span></h2>
+          <p>Take the short career discovery assessment and see directions worth exploring.</p>
+        </div>
+        <a class="button button-primary" href="#discover-yourself">Find my career <span aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>

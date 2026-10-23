@@ -491,115 +491,44 @@ CAREER_PROFILES.push(...ADDITIONAL_CAREERS.map((career) => ({
 
 const QUIZ_QUESTIONS = [
   {
-    prompt: "Which activities sound most interesting to you?",
-    options: [
-      ["Solving puzzles or logical problems", ["analytical", "technology"]],
-      ["Helping people or supporting their wellbeing", ["people", "health", "teaching"]],
-      ["Creating designs, stories, videos, or artwork", ["creative", "design", "communication"]],
-      ["Organising activities, leading teams, or managing projects", ["organisation", "business", "leadership"]],
-      ["Exploring nature, living things, or scientific questions", ["research", "science", "environment"]],
-      ["Building, repairing, or working with practical tools", ["practical", "hands_on", "problem solving"]]
-    ]
+    statement: "I enjoy solving logical problems and finding patterns.",
+    dimensions: ["analytical", "technology", "problem solving"]
   },
   {
-    prompt: "Which school or learning activities do you enjoy most?",
-    options: [
-      ["Mathematics, logic, or solving numerical problems", ["analytical", "business", "technology"]],
-      ["Biology, health, or understanding living things", ["science", "health", "research"]],
-      ["Business, economics, money, or real-world markets", ["business", "analytical", "organisation"]],
-      ["Literature, history, society, or debating ideas", ["communication", "social", "research"]],
-      ["Art, design, communication, or creative projects", ["creative", "design", "communication"]],
-      ["Computers, experiments, machines, or hands-on work", ["technology", "science", "practical"]]
-    ]
+    statement: "I enjoy helping people, understanding their needs, or supporting their wellbeing.",
+    dimensions: ["people", "health", "teaching", "social"]
   },
   {
-    prompt: "When facing a difficult problem, what do you usually prefer?",
-    options: [
-      ["Break it into logical steps", ["analytical", "problem solving"]],
-      ["Understand how it affects people", ["people", "social", "health"]],
-      ["Try several creative approaches", ["creative", "design"]],
-      ["Gather information and compare evidence", ["research", "analytical", "science"]],
-      ["Discuss it with others and coordinate a solution", ["communication", "organisation", "leadership"]],
-      ["Test a practical solution and learn from the outcome", ["practical", "hands_on", "problem solving"]]
-    ]
+    statement: "I like expressing ideas through writing, art, design, videos, or other creative work.",
+    dimensions: ["creative", "design", "communication"]
   },
   {
-    prompt: "What type of task gives you the most satisfaction?",
-    options: [
-      ["Finding patterns or explaining how something works", ["analytical", "research", "technology"]],
-      ["Making someone's life easier", ["people", "health", "social"]],
-      ["Expressing an idea creatively", ["creative", "communication", "design"]],
-      ["Persuading, negotiating, or achieving a target", ["business", "communication", "leadership"]],
-      ["Discovering something through research", ["research", "science", "analytical"]],
-      ["Making or fixing something tangible", ["practical", "hands_on", "design"]]
-    ]
+    statement: "I enjoy organising tasks, taking responsibility, or coordinating people.",
+    dimensions: ["organisation", "business", "leadership"]
   },
   {
-    prompt: "Which working environment sounds most appealing?",
-    options: [
-      ["Computer, software, or technology-focused environment", ["technology", "analytical"]],
-      ["Hospital, clinic, laboratory, or health-related setting", ["health", "science", "people"]],
-      ["Office, company, finance, or business environment", ["business", "organisation", "analytical"]],
-      ["Studio, media production, design, or creative environment", ["creative", "design", "communication"]],
-      ["School, community, fieldwork, or people-focused environment", ["people", "teaching", "social"]],
-      ["Workshop, industrial setting, outdoors, or hands-on environment", ["practical", "hands_on", "environment"]]
-    ]
+    statement: "I am curious about science, nature, research, or understanding how things work.",
+    dimensions: ["research", "science", "environment", "health"]
   },
   {
-    prompt: "Which qualities do you think may describe you?",
-    helper: "These are self-perceptions, not objective measurements.",
-    options: [
-      ["Analytical and detail-oriented", ["analytical", "research"]],
-      ["Empathetic and supportive", ["people", "health", "teaching"]],
-      ["Imaginative and expressive", ["creative", "communication"]],
-      ["Organised and responsible", ["organisation", "leadership"]],
-      ["Curious and research-oriented", ["research", "science"]],
-      ["Practical and action-oriented", ["practical", "hands_on"]]
-    ]
+    statement: "I enjoy building, repairing, experimenting, or working with practical tools.",
+    dimensions: ["practical", "hands_on", "problem solving", "science"]
   },
   {
-    prompt: "What would you most like to improve or develop?",
-    options: [
-      ["Coding, mathematics, or technical problem-solving", ["technology", "analytical"]],
-      ["Communication, teaching, or helping others", ["communication", "teaching", "people"]],
-      ["Design, writing, or creative expression", ["creative", "design", "communication"]],
-      ["Leadership, planning, or business decision-making", ["leadership", "organisation", "business"]],
-      ["Scientific research, analysis, or investigation", ["research", "science", "analytical"]],
-      ["Practical, mechanical, or hands-on skills", ["practical", "hands_on"]]
-    ]
+    statement: "I like analysing information and comparing evidence before making decisions.",
+    dimensions: ["analytical", "research", "business"]
   },
   {
-    prompt: "Which type of challenge would you most enjoy exploring?",
-    options: [
-      ["Designing an app or solving a technical problem", ["technology", "creative", "problem solving"]],
-      ["Understanding a health or biological question", ["health", "science", "research"]],
-      ["Starting a small business or improving a service", ["business", "leadership", "creative"]],
-      ["Creating a campaign, visual identity, or media project", ["creative", "design", "communication"]],
-      ["Investigating a social or environmental issue", ["social", "environment", "research"]],
-      ["Designing, building, or improving a physical object", ["practical", "hands_on", "design"]]
-    ]
+    statement: "I enjoy communicating ideas, presenting information, persuading others, or working with people.",
+    dimensions: ["communication", "people", "leadership", "teaching", "business"]
   },
   {
-    prompt: "What matters most to you in a future career?",
-    options: [
-      ["Solving challenging problems", ["problem solving", "analytical", "technology"]],
-      ["Helping people or contributing to society", ["people", "social", "health"]],
-      ["Creativity and freedom to express ideas", ["creative", "design", "communication"]],
-      ["Income potential and business opportunities", ["business", "leadership"]],
-      ["Learning, research, and continuous discovery", ["research", "science", "analytical"]],
-      ["Practical work and visible results", ["practical", "hands_on"]]
-    ]
+    statement: "I would enjoy learning new technical, digital, business, or professional skills through practice.",
+    dimensions: ["technology", "business", "analytical", "practical"]
   },
   {
-    prompt: "How do you prefer to learn something new?",
-    options: [
-      ["Tutorials, coding exercises, or logical examples", ["technology", "analytical"]],
-      ["Learning by interacting with people", ["people", "communication", "teaching"]],
-      ["Sketching, experimenting, or creating something", ["creative", "design", "practical"]],
-      ["Planning, organising, and completing milestones", ["organisation", "leadership", "business"]],
-      ["Reading, researching, and analysing information", ["research", "analytical", "science"]],
-      ["Demonstrations, simulations, and hands-on practice", ["practical", "hands_on", "science"]]
-    ]
+    statement: "I prefer activities where I can create something useful and see the result of my work.",
+    dimensions: ["creative", "practical", "design", "problem solving"]
   }
 ];
 
@@ -672,13 +601,14 @@ const quizProgressLabel = document.querySelector("#quiz-progress-label");
 const quizProgress = document.querySelector("#quiz-progress");
 const quizError = document.querySelector("#quiz-error");
 const quizBack = document.querySelector("#quiz-back");
-const quizNext = document.querySelector("#quiz-next");
-const quizSubmit = document.querySelector("#quiz-submit");
 const resultsDashboard = document.querySelector("#results-dashboard");
 
 let profile = {};
 let quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
 let currentQuestion = 0;
+let isNavigating = false;
+let navigationTimer = null;
+let selectedCareerCategories = null;
 
 function normalizeTerm(value) {
   const normalized = String(value)
@@ -787,13 +717,12 @@ function scoreCareer(profile, career) {
   });
 
   const dimensionWeights = profile.quizDimensionWeights || {};
-  const totalDimensionWeight = Object.values(dimensionWeights).reduce((total, weight) => total + weight, 0);
   const careerDimensions = new Set(asList(career.dimensions));
-  const matchedDimensionWeight = Object.entries(dimensionWeights)
+  const relevantDimensionScores = Object.entries(dimensionWeights)
     .filter(([dimension]) => careerDimensions.has(dimension))
-    .reduce((total, [, weight]) => total + weight, 0);
-  const quizScore = totalDimensionWeight > 0
-    ? Math.round((matchedDimensionWeight / totalDimensionWeight) * 100)
+    .map(([, result]) => result.percent);
+  const quizScore = relevantDimensionScores.length > 0
+    ? Math.round(relevantDimensionScores.reduce((total, score) => total + score, 0) / relevantDimensionScores.length)
     : null;
   const profileScore = comparableWeight > 0
     ? Math.round(weightedTotal / comparableWeight)
@@ -815,7 +744,9 @@ function scoreCareer(profile, career) {
     comparedCategories: factorResults.length,
     unavailableCategories,
     factorResults,
-    matchedDimensions: [...careerDimensions].filter((dimension) => dimensionWeights[dimension])
+    matchedDimensions: [...careerDimensions]
+      .filter((dimension) => dimensionWeights[dimension])
+      .map((dimension) => ({ key: dimension, ...dimensionWeights[dimension] }))
   };
 }
 
@@ -831,7 +762,7 @@ function createReasons(match) {
     reasons.push(`Not compared because career profile data is missing for: ${match.unavailableCategories.join(", ")}.`);
   }
   if (match.matchedDimensions && match.matchedDimensions.length > 0) {
-    reasons.unshift(`Your quiz choices overlapped with: ${match.matchedDimensions.map((dimension) => DIMENSION_LABELS[dimension] || dimension).join(", ")}.`);
+    reasons.unshift(`Quiz agreement for related interests: ${match.matchedDimensions.map((dimension) => `${DIMENSION_LABELS[dimension.key] || dimension.key} ${dimension.mean.toFixed(1)}/5`).join(", ")}.`);
   }
 
   if (match.score === null && reasons.length === 0) {
@@ -852,7 +783,7 @@ function getPotentialSkillGaps(profile, career) {
 }
 
 function buildRecommendationResponse(profile) {
-  const scoreLimitations = ["Scores are transparent profile-tag overlap, not a probability of success, aptitude measure, or professional assessment."];
+  const scoreLimitations = ["Scores compare mapped quiz-interest dimensions and, when available, optional profile-tag overlap. They are not a probability of success, an aptitude measure, or a professional assessment."];
   const results = CAREER_PROFILES
     .map((career) => {
       const match = scoreCareer(profile, career);
@@ -935,12 +866,12 @@ function renderCareerCard(career, result = null, index = 0, extraText = "") {
   const matchBadge = result
     ? result.score === null
       ? '<span class="match-badge match-unscored">Not enough data to score</span>'
-      : `<span class="match-badge">Score ${result.score}/100</span>`
+      : `<span class="match-badge">Interest alignment ${result.score}/100</span>`
     : '<span class="match-badge match-neutral">Career profile</span>';
   const matchDetails = result
     ? `
       <div class="match-explanation">
-        <p><strong>What this score means:</strong> It reflects overlap between selected quiz dimensions and available profile tags${result.profileScore === null ? "." : ", plus the profile details you provided."} It is not a success probability or an assessment of ability.</p>
+        <p><strong>What this score means:</strong> It averages agreement percentages for quiz dimensions listed in this career profile${result.profileScore === null ? " (100% quiz score; no profile tags were comparable)." : " (70% of the score), plus 30% from comparable interests, skills, subjects, and goals you provided."} Neutral answers contribute the midpoint and are not treated as weaknesses. This score is not a success probability or an assessment of ability.</p>
         <h4>Why it appeared</h4>
         ${renderList(result.matchedReasons)}
         ${result.scoreLimitations && result.scoreLimitations.length
@@ -1032,22 +963,29 @@ function getEducationFitNote(studentProfile, career) {
   return `${label} is recorded for context only; this profile does not contain verified, program-level stream eligibility for every route. It does not automatically rule out this career. ${asList(career.subjects).length ? `This profile lists ${career.subjects.join(", ")} as topics to explore, not entry requirements.` : ""} Check official sources for prerequisites, bridge courses, exams, or qualifications.`;
 }
 
-function getQuizDimensionWeights(answers) {
-  const weights = {};
-  answers.forEach((optionIndex, questionIndex) => {
-    if (optionIndex === null) return;
-    [...new Set(QUIZ_QUESTIONS[questionIndex].options[optionIndex][1])].forEach((dimension) => {
-      weights[dimension] = (weights[dimension] || 0) + 1;
+function getQuizDimensionScores(answers) {
+  const scores = {};
+  answers.forEach((rating, questionIndex) => {
+    QUIZ_QUESTIONS[questionIndex].dimensions.forEach((dimension) => {
+      if (!scores[dimension]) scores[dimension] = [];
+      scores[dimension].push(rating);
     });
   });
-  return weights;
+  return Object.fromEntries(Object.entries(scores).map(([dimension, ratings]) => {
+    const mean = ratings.reduce((total, rating) => total + rating, 0) / ratings.length;
+    return [dimension, {
+      mean,
+      percent: Math.round(((mean - 1) / 4) * 100),
+      responses: ratings.length
+    }];
+  }));
 }
 
 function getChosenDevelopmentFocus() {
-  const optionIndex = quizAnswers[6];
-  return optionIndex === null
-    ? []
-    : QUIZ_QUESTIONS[6].options[optionIndex][1].map((dimension) => DIMENSION_LABELS[dimension] || dimension);
+  const rating = quizAnswers[8];
+  return rating >= 4
+    ? QUIZ_QUESTIONS[8].dimensions.map((dimension) => DIMENSION_LABELS[dimension] || dimension)
+    : [];
 }
 
 function renderListItems(items) {
@@ -1058,41 +996,44 @@ function renderListItems(items) {
 function renderDashboard(response) {
   const dimensionWeights = profile.quizDimensionWeights;
   const strongestDimensions = Object.entries(dimensionWeights)
-    .sort((a, b) => b[1] - a[1] || (DIMENSION_LABELS[a[0]] || a[0]).localeCompare(DIMENSION_LABELS[b[0]] || b[0]))
+    .sort((a, b) => b[1].mean - a[1].mean || (DIMENSION_LABELS[a[0]] || a[0]).localeCompare(DIMENSION_LABELS[b[0]] || b[0]))
+    .filter(([, result]) => result.mean > 3)
     .slice(0, 4);
-  const selectedAnswers = quizAnswers.map((optionIndex, questionIndex) => (
-    QUIZ_QUESTIONS[questionIndex].options[optionIndex][0]
-  ));
   const topLabels = strongestDimensions.map(([dimension]) => DIMENSION_LABELS[dimension] || dimension);
 
-  recommendationSummary.textContent = `Across your 10 answers, themes included ${topLabels.join(", ")}. These are preferences to explore—not a fixed profile. We compared your answers with ${CAREER_PROFILES.length} career profiles and show the five strongest overlaps available.`;
+  const interestSummary = topLabels.length
+    ? `Your answers suggest interest in ${topLabels.join(", ")}.`
+    : "Your responses did not rate a particular interest dimension above neutral; neutral or disagreement is not a weakness and does not limit your potential.";
+  recommendationSummary.textContent = `${interestSummary} Dimension scores are calculated as the mean of the 1–5 agreement ratings mapped to each dimension, then converted with ((mean − 1) ÷ 4) × 100; neutral is the midpoint (50). We compared your answers with ${CAREER_PROFILES.length} career profiles and show up to five profiles with the strongest available overlap.`;
 
-  document.querySelector("#strengths-results").innerHTML = `<ul>${strongestDimensions.map(([dimension]) => {
-    const supportingAnswers = quizAnswers.reduce((questions, optionIndex, questionIndex) => {
-      if (QUIZ_QUESTIONS[questionIndex].options[optionIndex][1].includes(dimension)) {
-        questions.push(`Q${questionIndex + 1}`);
+  document.querySelector("#strengths-results").innerHTML = strongestDimensions.length ? `<ul>${strongestDimensions.map(([dimension]) => {
+    const supportingAnswers = quizAnswers.reduce((questions, rating, questionIndex) => {
+      if (QUIZ_QUESTIONS[questionIndex].dimensions.includes(dimension)) {
+        questions.push(`Q${questionIndex + 1} (${rating}/5)`);
       }
       return questions;
     }, []);
-    return `<li><strong>${escapeHTML(DIMENSION_LABELS[dimension] || dimension)}</strong> — Your answers suggest this may be worth exploring; it appeared in ${supportingAnswers.join(", ")}.</li>`;
-  }).join("")}</ul>`;
+    return `<li><strong>${escapeHTML(DIMENSION_LABELS[dimension] || dimension)}</strong> — Your answers suggest this may be worth exploring (average ${dimensionWeights[dimension].mean.toFixed(1)}/5; ${dimensionWeights[dimension].percent}/100 of the scale range). Responses: ${supportingAnswers.join(", ")}.</li>`;
+  }).join("")}</ul>` : "<p>No dimensions were rated above neutral in this quiz. You can still explore every career; these answers do not measure ability or potential.</p>";
 
   const explicitDevelopment = getChosenDevelopmentFocus();
   const careerSkills = [...new Set(response.results
     .slice(0, 3)
     .flatMap((result) => asList(result.careerProfile.skills && result.careerProfile.skills.required)))].slice(0, 4);
   document.querySelector("#development-results").innerHTML = `
-    <p><strong>You explicitly chose to develop:</strong></p>
+    <p><strong>You expressed interest in learning:</strong> Your response to statement 9 was ${quizAnswers[8]}/5${quizAnswers[8] >= 4 ? ", suggesting the listed skill areas may be worth exploring." : "; this is a preference rating, not a skill gap."}</p>
     ${renderListItems(explicitDevelopment)}
     <p><strong>Skills that may be useful in your leading career ideas:</strong> These are learning opportunities, not inferred weaknesses.</p>
     ${renderListItems(careerSkills)}
   `;
 
   document.querySelector("#workstyle-results").innerHTML = `
-    <p>You selected activities involving ${topLabels.join(", ")}. This describes choices in this quiz, not a permanent personality type.</p>
+    <p>${topLabels.length
+      ? `Your ratings suggest interest in activities involving ${topLabels.join(", ")}. This is a snapshot of stated preferences, not a permanent personality type.`
+      : "Your answers did not show a preference above neutral for one particular work-style dimension. This is not a weakness or a fixed classification."}</p>
     <details class="answer-review">
       <summary>Review your 10 answers</summary>
-      <ol>${selectedAnswers.map((answer, index) => `<li><strong>Q${index + 1}:</strong> ${escapeHTML(answer)}</li>`).join("")}</ol>
+      <ol>${quizAnswers.map((rating, index) => `<li><strong>${escapeHTML(QUIZ_QUESTIONS[index].statement)}</strong> — ${rating}/5 (${["", "Strongly Disagree", "Disagree", "Neutral / Not Sure", "Agree", "Strongly Agree"][rating]}).</li>`).join("")}</ol>
     </details>
   `;
 
@@ -1124,10 +1065,10 @@ function renderDashboard(response) {
   }
   document.querySelector("#education-results").innerHTML = `<ul>${educationLines.map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>`;
 
-  recommendationResults.innerHTML = response.results.map((result, index) => {
+  recommendationResults.innerHTML = response.results.length ? response.results.map((result, index) => {
     const career = CAREER_PROFILES.find((item) => item.id === result.careerId);
     return renderCareerCard(career, result, index);
-  }).join("");
+  }).join("") : '<p class="empty-state">No career profile passed the exploratory match threshold for these answers. This does not mean you lack potential. Browse all career paths below or retake the quiz with answers that best reflect your preferences.</p>';
 
   const firstCareer = response.results[0] && response.results[0].careerProfile;
   const roadmap = [];
@@ -1151,15 +1092,15 @@ function renderDashboard(response) {
   const excludedIds = new Set(response.results.map((result) => result.careerId));
   const alternatives = CAREER_PROFILES.filter((career) => !excludedIds.has(career.id))
     .sort((a, b) => {
-      const aOverlap = a.dimensions.filter((dimension) => dimensionWeights[dimension]).length;
-      const bOverlap = b.dimensions.filter((dimension) => dimensionWeights[dimension]).length;
+      const aOverlap = a.dimensions.reduce((total, dimension) => total + (dimensionWeights[dimension] ? dimensionWeights[dimension].mean : 0), 0);
+      const bOverlap = b.dimensions.reduce((total, dimension) => total + (dimensionWeights[dimension] ? dimensionWeights[dimension].mean : 0), 0);
       return bOverlap - aOverlap || a.title.localeCompare(b.title);
     })
     .slice(0, 3);
   document.querySelector("#alternative-results").innerHTML = alternatives
     .map((career, index) => {
       const relatedDimensions = career.dimensions
-        .filter((dimension) => dimensionWeights[dimension])
+        .filter((dimension) => dimensionWeights[dimension] && dimensionWeights[dimension].mean >= 3)
         .map((dimension) => DIMENSION_LABELS[dimension] || dimension);
       const reason = relatedDimensions.length
         ? `Worth exploring because your quiz also touched on ${relatedDimensions.join(", ")}.`
@@ -1174,27 +1115,75 @@ function renderQuizQuestion() {
   quizProgressLabel.textContent = `Question ${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}`;
   quizProgress.value = currentQuestion + 1;
   quizBack.disabled = currentQuestion === 0;
-  quizNext.hidden = currentQuestion === QUIZ_QUESTIONS.length - 1;
-  quizSubmit.hidden = currentQuestion !== QUIZ_QUESTIONS.length - 1;
   quizError.hidden = true;
   quizQuestion.innerHTML = `
-    <h3 id="quiz-question-title" tabindex="-1">${escapeHTML(question.prompt)}</h3>
-    ${question.helper ? `<p class="quiz-helper">${escapeHTML(question.helper)}</p>` : ""}
-    <div class="quiz-options">
-      ${question.options.map(([label], optionIndex) => `
-        <label class="quiz-option" for="quiz-option-${optionIndex}">
-          <input id="quiz-option-${optionIndex}" type="radio" name="quiz-answer" value="${optionIndex}" ${quizAnswers[currentQuestion] === optionIndex ? "checked" : ""}>
-          <span>${escapeHTML(label)}</span>
+    <h3 id="quiz-question-title" tabindex="-1">${escapeHTML(question.statement)}</h3>
+    <div class="likert-scale" role="radiogroup" aria-labelledby="quiz-question-title">
+      <span class="likert-endpoint likert-start">Strongly Disagree</span>
+      ${[1, 2, 3, 4, 5].map((rating) => `
+        <label class="likert-point likert-point-${rating}" for="quiz-rating-${rating}">
+          <input id="quiz-rating-${rating}" type="radio" name="quiz-answer" value="${rating}" aria-label="${rating}, ${["", "Strongly Disagree", "Disagree", "Neutral / Not Sure", "Agree", "Strongly Agree"][rating]}" ${quizAnswers[currentQuestion] === rating ? "checked" : ""}>
+          <span class="likert-dot" aria-hidden="true"></span>
+          <span class="likert-value" aria-hidden="true">${rating}</span>
         </label>
       `).join("")}
+      <span class="likert-endpoint likert-end">Strongly Agree</span>
     </div>
   `;
   quizQuestion.querySelectorAll('input[name="quiz-answer"]').forEach((input) => {
     input.addEventListener("change", () => {
-      quizAnswers[currentQuestion] = Number(input.value);
+      if (isNavigating) return;
+      const rating = Number(input.value);
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) return;
+      quizAnswers[currentQuestion] = rating;
       quizError.hidden = true;
+      quizQuestion.querySelectorAll('input[name="quiz-answer"]').forEach((radio) => {
+        radio.disabled = true;
+      });
+      advanceQuiz();
     });
   });
+}
+
+function showQuizResults() {
+  if (quizAnswers.length !== QUIZ_QUESTIONS.length
+    || quizAnswers.some((rating) => !Number.isInteger(rating) || rating < 1 || rating > 5)) {
+    quizError.hidden = false;
+    return;
+  }
+  profile.quizDimensionWeights = getQuizDimensionScores(quizAnswers);
+  profile.skillsToDevelop = getChosenDevelopmentFocus();
+  const response = buildRecommendationResponse(profile);
+  if (response.results.length === 0) {
+    recommendationSummary.textContent = "There is not enough overlap in the available career profile data to show a useful match yet. Browse the full career explorer below.";
+    return;
+  }
+  renderDashboard(response);
+  quizForm.hidden = true;
+  resultsDashboard.hidden = false;
+  resultsDashboard.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function advanceQuiz() {
+  if (isNavigating) return;
+  isNavigating = true;
+  quizBack.disabled = true;
+  quizQuestion.classList.add("is-transitioning");
+  navigationTimer = window.setTimeout(() => {
+    navigationTimer = null;
+    quizQuestion.classList.remove("is-transitioning");
+    if (currentQuestion === QUIZ_QUESTIONS.length - 1) {
+      isNavigating = false;
+      showQuizResults();
+      return;
+    }
+    currentQuestion += 1;
+    renderQuizQuestion();
+    isNavigating = false;
+    quizBack.disabled = currentQuestion === 0;
+    (quizQuestion.querySelector('input[name="quiz-answer"]:checked')
+      || quizQuestion.querySelector('input[name="quiz-answer"]')).focus();
+  }, 120);
 }
 
 function getSearchRank(career, query) {
@@ -1222,84 +1211,70 @@ function getSearchRank(career, query) {
 
 function updateCareerSearch() {
   const query = careerSearch.value.trim().toLocaleLowerCase();
+  const matchingCareers = selectedCareerCategories
+    ? CAREER_PROFILES.filter((career) => selectedCareerCategories.has(career.category))
+    : CAREER_PROFILES;
   const results = query
-    ? CAREER_PROFILES
+    ? matchingCareers
       .map((career) => ({ career, rank: getSearchRank(career, query) }))
       .filter((result) => result.rank > 0)
       .sort((a, b) => b.rank - a.rank || a.career.title.localeCompare(b.career.title))
       .map((result) => result.career)
-    : CAREER_PROFILES;
+    : matchingCareers;
 
   renderCareerResults(results, careerResults);
   careerCount.textContent = `${String(results.length).padStart(2, "0")} CAREER ${results.length === 1 ? "PATH" : "PATHS"}`;
   searchStatus.textContent = query
-    ? `${results.length} search ${results.length === 1 ? "result" : "results"} — not personalized recommendations.`
-    : "Showing all career profiles.";
+    ? `${results.length} search ${results.length === 1 ? "result" : "results"}${selectedCareerCategories ? " in this category" : ""} — not personalized recommendations.`
+    : selectedCareerCategories ? `Showing ${results.length} career profiles in this category.` : "Showing all career profiles.";
+}
+
+function startQuiz() {
+  profile = readProfile();
+  quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
+  currentQuestion = 0;
+  isNavigating = false;
+  if (navigationTimer !== null) {
+    window.clearTimeout(navigationTimer);
+    navigationTimer = null;
+  }
+  quizStart.hidden = true;
+  resultsDashboard.hidden = true;
+  quizForm.hidden = false;
+  renderQuizQuestion();
+  quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 profileForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  profile = readProfile();
-  currentQuestion = 0;
-  quizStart.hidden = true;
-  resultsDashboard.hidden = true;
-  quizForm.hidden = false;
-  renderQuizQuestion();
-  quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  startQuiz();
 });
 
-document.querySelector("#start-quiz").addEventListener("click", () => {
-  profile = readProfile();
-  currentQuestion = 0;
-  quizStart.hidden = true;
-  resultsDashboard.hidden = true;
-  quizForm.hidden = false;
-  renderQuizQuestion();
-  quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-quizNext.addEventListener("click", () => {
-  if (quizAnswers[currentQuestion] === null) {
-    quizError.hidden = false;
-    quizQuestion.querySelector('input[name="quiz-answer"]').focus();
-    return;
-  }
-  currentQuestion += 1;
-  renderQuizQuestion();
-  quizQuestion.querySelector("h3").focus();
-});
+document.querySelector("#start-quiz").addEventListener("click", startQuiz);
 
 quizBack.addEventListener("click", () => {
-  if (currentQuestion === 0) return;
+  if (currentQuestion === 0 || isNavigating) return;
   currentQuestion -= 1;
   renderQuizQuestion();
-  quizQuestion.querySelector("h3").focus();
+  (quizQuestion.querySelector('input[name="quiz-answer"]:checked')
+    || quizQuestion.querySelector('input[name="quiz-answer"]')).focus();
 });
 
 quizForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  if (quizAnswers.some((answer) => answer === null)) {
-    currentQuestion = quizAnswers.findIndex((answer) => answer === null);
-    renderQuizQuestion();
+  if (currentQuestion === QUIZ_QUESTIONS.length - 1 && quizAnswers.every((rating) => Number.isInteger(rating) && rating >= 1 && rating <= 5)) {
+    showQuizResults();
+  } else if (quizAnswers.some((rating) => !Number.isInteger(rating) || rating < 1 || rating > 5)) {
     quizError.hidden = false;
-    quizQuestion.querySelector('input[name="quiz-answer"]').focus();
-    return;
   }
-
-  profile.quizDimensionWeights = getQuizDimensionWeights(quizAnswers);
-  profile.skillsToDevelop = getChosenDevelopmentFocus();
-  const response = buildRecommendationResponse(profile);
-  if (response.results.length === 0) {
-    recommendationSummary.textContent = "There is not enough overlap in the available career profile data to show a useful match yet. Browse the full career explorer below.";
-    return;
-  }
-  renderDashboard(response);
-  quizForm.hidden = true;
-  resultsDashboard.hidden = false;
-  resultsDashboard.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 document.querySelector("#review-quiz").addEventListener("click", () => {
+  if (navigationTimer !== null) {
+    window.clearTimeout(navigationTimer);
+    navigationTimer = null;
+  }
+  isNavigating = false;
   currentQuestion = 0;
   resultsDashboard.hidden = true;
   quizStart.hidden = true;
@@ -1309,10 +1284,14 @@ document.querySelector("#review-quiz").addEventListener("click", () => {
 });
 
 document.querySelector("#restart-quiz").addEventListener("click", () => {
+  if (navigationTimer !== null) {
+    window.clearTimeout(navigationTimer);
+    navigationTimer = null;
+  }
+  isNavigating = false;
   quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
   currentQuestion = 0;
-  profile = {};
-  profileForm.reset();
+  profile = readProfile();
   quizForm.reset();
   quizForm.hidden = true;
   resultsDashboard.hidden = true;
@@ -1326,6 +1305,43 @@ profileForm.addEventListener("reset", () => {
 });
 
 careerSearch.addEventListener("input", updateCareerSearch);
+
+document.querySelectorAll(".category-filter").forEach((button) => {
+  button.addEventListener("click", () => {
+    const categories = button.dataset.categories;
+    selectedCareerCategories = categories === "all" ? null : new Set(categories.split(","));
+    document.querySelectorAll(".category-filter").forEach((filter) => {
+      const isActive = filter === button;
+      filter.classList.toggle("is-active", isActive);
+      filter.setAttribute("aria-pressed", String(isActive));
+    });
+    updateCareerSearch();
+  });
+});
+
+const navToggle = document.querySelector("#nav-toggle");
+const navLinks = document.querySelector("#nav-links");
+const navCta = document.querySelector(".nav-cta");
+
+function closeNavigation() {
+  navToggle.setAttribute("aria-expanded", "false");
+  navToggle.setAttribute("aria-label", "Open navigation");
+  navLinks.classList.remove("is-open");
+}
+
+navToggle.addEventListener("click", () => {
+  const isOpen = navToggle.getAttribute("aria-expanded") !== "true";
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+  navToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+  navLinks.classList.toggle("is-open", isOpen);
+});
+navLinks.addEventListener("click", (event) => {
+  if (event.target.closest("a")) closeNavigation();
+});
+navCta.addEventListener("click", closeNavigation);
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 820) closeNavigation();
+});
 
 document.querySelector("#current-year").textContent = new Date().getFullYear();
 updateCareerSearch();
