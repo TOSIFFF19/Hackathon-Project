@@ -1410,6 +1410,47 @@ summary:focus-visible {
   line-height: 1.65;
 }
 
+.career-market-snapshot {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--sage);
+}
+
+.career-market-snapshot h4 {
+  margin-top: 0;
+}
+
+.career-market-snapshot dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.career-market-snapshot dl > div {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.8fr) minmax(0, 1.2fr);
+  gap: 12px;
+}
+
+.career-market-snapshot dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.career-market-snapshot dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.career-market-snapshot > p:last-child {
+  margin-bottom: 0;
+  font-size: 11px;
+}
+
 .career-details a {
   color: var(--green);
   text-decoration: underline;

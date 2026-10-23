@@ -489,47 +489,175 @@ CAREER_PROFILES.push(...ADDITIONAL_CAREERS.map((career) => ({
   freeResources: [{ title: career.resource[0], url: career.resource[1], topic: career.resource[2] }]
 })));
 
+const CAREER_MARKET_GROUPS = [
+  {
+    category: "vocational",
+    color: "peach",
+    dimensions: ["practical", "hands_on", "problem solving", "responsibility"],
+    interests: ["hands-on work", "tools", "practical problem-solving"],
+    skills: { required: ["practical problem-solving", "safety awareness"], helpful: ["measurement", "attention to detail", "teamwork"] },
+    subjects: ["vocational studies", "mathematics", "science"],
+    description: "Apply practical skills, technical knowledge, and safety procedures in a hands-on role.",
+    roadmap: ["Explore the tools, tasks, and safety practices used in this occupation.", "Build foundational skills through safe, supervised activities.", "Compare recognised training routes and local job descriptions.", "Speak with a qualified practitioner about the day-to-day work."],
+    project: ["Career task explainer", "Research a typical task in this role using reliable public sources and describe its tools, safety considerations, and skills."],
+    roles: [
+      ["carpenter_cabinet_maker", "Carpenter / cabinet maker", "Moderate", "2.8", "10th pass / ITI"],
+      ["mason_tile_setter", "Mason / tile setter", "Moderate", "2.5", "No formal / 10th"],
+      ["electrician", "Electrician", "High", "3.0", "ITI"],
+      ["appliance_repair_technician", "Appliance repair technician", "Moderate", "2.6", "ITI / Diploma"],
+      ["electronics_assembler_technician", "Electronics assembler / technician", "High", "2.8", "ITI / Diploma"],
+      ["truck_delivery_driver", "Truck / delivery driver", "High", "2.8", "10th pass"],
+      ["locksmith", "Locksmith", "Low", "2.4", "10th pass"],
+      ["cnc_machine_operator", "CNC / machine operator", "High", "3.2", "ITI / Diploma"],
+      ["quality_control_inspector", "Quality control inspector", "Moderate", "3.5", "Diploma / B.Tech"],
+      ["firefighter_forest_guard", "Firefighter / forest guard", "Moderate", "4.0", "12th + training"],
+      ["fisheries_aquaculture_technician", "Fisheries / aquaculture technician", "High", "3.0", "Diploma / B.F.Sc"],
+      ["ev_automobile_technician", "EV / automobile technician", "Very High", "3.0", "ITI / Diploma"]
+    ]
+  },
+  {
+    category: "science",
+    color: "blue",
+    dimensions: ["science", "research", "analytical", "problem solving"],
+    interests: ["science", "experiments", "research"],
+    skills: { required: ["observation", "research"], helpful: ["data analysis", "scientific communication", "attention to detail"] },
+    subjects: ["science", "biology", "chemistry", "mathematics"],
+    description: "Use scientific methods, evidence, and specialist knowledge to investigate questions and solve problems.",
+    roadmap: ["Strengthen relevant science and mathematics foundations.", "Practise reading research and distinguishing evidence from assumptions.", "Explore safe, supervised activities and public datasets.", "Compare recognised courses and role-specific requirements."],
+    project: ["Research question brief", "Summarise a public scientific source about this field and clearly note its methods, findings, and limitations."],
+    roles: [
+      ["pharmaceutical_rd_scientist", "Pharmaceutical R&D scientist", "High", "6.0", "M.Pharm / M.Sc / PhD"],
+      ["environmental_scientist_engineer", "Environmental scientist / engineer", "High", "5.0", "B.Tech / M.Sc"],
+      ["chemist", "Chemist", "Moderate", "4.5", "M.Sc"],
+      ["astronomer_space_scientist", "Astronomer / space scientist", "Low (small field)", "9.0", "PhD"],
+      ["medical_lab_technologist", "Medical lab technologist", "High", "3.0", "DMLT / B.Sc MLT"],
+      ["pathologist", "Pathologist", "High", "12.0", "MBBS + MD"],
+      ["meteorologist", "Meteorologist", "Moderate", "8.0", "M.Sc"],
+      ["biotech_biology_researcher", "Biotech / biology researcher", "High", "5.0", "M.Sc / PhD"],
+      ["food_scientist_market", "Food scientist", "High", "4.5", "B.Tech Food Tech"],
+      ["data_scientist", "Data scientist", "Very High", "12.0", "B.Tech / Master’s"],
+      ["forensic_scientist_fire_investigator", "Forensic scientist / fire investigator", "High", "5.0", "M.Sc Forensic Science"]
+    ]
+  },
+  {
+    category: "creative",
+    color: "pink",
+    dimensions: ["creative", "design", "communication"],
+    interests: ["creative work", "visual expression", "storytelling"],
+    skills: { required: ["creative practice", "communication"], helpful: ["design", "observation", "attention to detail"] },
+    subjects: ["art", "design", "media", "literature"],
+    description: "Create, perform, or shape visual and written work for audiences and experiences.",
+    roadmap: ["Explore the tools and techniques used in this creative field.", "Practise the fundamentals and keep examples of your work.", "Seek constructive feedback and learn about accessibility and attribution.", "Build a small portfolio project using original or appropriately licensed material."],
+    project: ["Creative portfolio study", "Create a small original study related to this field and document your idea, process, and revisions."],
+    roles: [
+      ["author_content_writer", "Author / content writer", "Moderate", "4.0", "Bachelor’s"],
+      ["musician_instrumentalist", "Musician / instrumentalist", "Moderate", "3.0", "Training / diploma"],
+      ["music_composer_arranger", "Music composer / arranger", "Moderate", "5.0", "Training / degree"],
+      ["graphic_designer_market", "Graphic designer", "High", "4.0", "Bachelor’s / diploma"],
+      ["animator_illustrator", "Animator / illustrator", "High", "4.5", "Bachelor’s / diploma"],
+      ["vfx_artist", "VFX artist", "High", "5.0", "Bachelor’s / diploma"],
+      ["set_art_director", "Set / art director", "Moderate", "5.0", "Bachelor’s (Fine Arts)"],
+      ["screenwriter", "Screenwriter", "Moderate", "6.0", "Bachelor’s"],
+      ["dancer_choreographer", "Dancer / choreographer", "Moderate", "3.5", "Training"],
+      ["video_editor", "Video editor", "High", "4.0", "Bachelor’s / diploma"],
+      ["ux_ui_designer", "UX/UI designer", "Very High", "9.0", "Bachelor’s"]
+    ]
+  },
+  {
+    category: "social_science",
+    color: "mint",
+    dimensions: ["people", "teaching", "communication", "social"],
+    interests: ["helping people", "teaching", "community"],
+    skills: { required: ["communication", "empathy"], helpful: ["planning", "teamwork", "active listening"] },
+    subjects: ["social science", "psychology", "biology", "education"],
+    description: "Support people’s wellbeing, learning, communication, or participation in their communities.",
+    roadmap: ["Learn about the people and communities this role serves.", "Explore ethical practice, communication, and relevant subject foundations.", "Speak with a qualified professional about the role’s responsibilities.", "Check recognised training and any professional registration requirements."],
+    project: ["Accessible information resource", "Create a source-checked, plain-language resource that helps explain a general topic related to this role."],
+    roles: [
+      ["fitness_trainer", "Fitness trainer", "High", "3.0", "Certification"],
+      ["counsellor_psychologist", "Counsellor / psychologist", "Very High", "4.0", "Master’s"],
+      ["career_counsellor", "Career counsellor", "High", "4.0", "Master’s"],
+      ["physiotherapist_occupational_therapist", "Physiotherapist / occupational therapist", "High", "4.0", "Bachelor’s (BPT/BOT)"],
+      ["social_worker_ngo_programme_officer", "Social worker / NGO programme officer", "Moderate", "3.6", "MSW / Master’s"],
+      ["sports_coach", "Sports coach", "Moderate", "3.5", "Certification / degree"],
+      ["special_educator_sign_language_interpreter", "Special educator / sign language interpreter", "High", "3.6", "B.Ed (Special) / RCI diploma"],
+      ["preschool_day_care_teacher", "Preschool / day-care teacher", "High", "2.4", "Diploma / NTT"],
+      ["high_school_teacher", "High-school teacher", "Moderate", "5.0", "B.Ed"],
+      ["nurse_market", "Nurse", "High", "3.6", "B.Sc Nursing / GNM"],
+      ["speech_therapist_audiologist", "Speech therapist / audiologist", "High", "4.2", "Bachelor’s / Master’s"]
+    ]
+  },
+  {
+    category: "business",
+    color: "yellow",
+    dimensions: ["business", "leadership", "communication", "organisation"],
+    interests: ["business", "leadership", "working with people"],
+    skills: { required: ["communication", "planning"], helpful: ["negotiation", "research", "numeracy"] },
+    subjects: ["business studies", "economics", "communication"],
+    description: "Coordinate people, products, services, or commercial decisions in a range of organisations.",
+    roadmap: ["Explore how this role contributes to an organisation or customer.", "Build communication, planning, and relevant business foundations.", "Practise analysing a simple public or fictional business scenario.", "Compare current job descriptions and recognised learning options."],
+    project: ["Role and market brief", "Use public information to outline the customers, tasks, and decisions connected with this role."],
+    roles: [
+      ["equity_dealer_investment_analyst", "Equity dealer / investment analyst", "High", "8.0", "Bachelor’s / MBA / CFA"],
+      ["retail_store_manager", "Retail store manager", "High", "4.5", "Graduate"],
+      ["hair_stylist_salon_owner", "Hair stylist / salon owner", "High", "3.0", "Certification / diploma"],
+      ["department_operations_manager", "Department / operations manager", "Moderate", "12.0", "MBA / Bachelor’s"],
+      ["entrepreneur_market", "Entrepreneur", "Highly variable", "Varies", "Varies"],
+      ["procurement_contract_negotiator", "Procurement / contract negotiator", "Moderate", "8.0", "Bachelor’s / MBA"],
+      ["lawyer_market", "Lawyer", "High", "6.0", "LLB"],
+      ["marketing_brand_manager", "Marketing / brand manager", "High", "10.0", "MBA / Bachelor’s"],
+      ["sales_executive_retail", "Sales executive (retail)", "Moderate", "2.4", "12th / Graduate"],
+      ["fashion_merchandiser", "Fashion merchandiser", "Moderate", "4.5", "Bachelor’s (Fashion/Retail)"],
+      ["digital_marketer", "Digital marketer", "Very High", "5.0", "Bachelor’s"]
+    ]
+  },
+  {
+    category: "business_finance",
+    color: "violet",
+    dimensions: ["analytical", "organisation", "detail", "technology"],
+    interests: ["organising information", "accuracy", "working with data"],
+    skills: { required: ["attention to detail", "organisation"], helpful: ["numeracy", "spreadsheets", "communication"] },
+    subjects: ["mathematics", "business studies", "computer science"],
+    description: "Maintain accurate information and support the systems and processes organisations rely on.",
+    roadmap: ["Explore the records, tools, and processes used in this occupation.", "Practise accuracy and organisation with fictional examples.", "Build relevant digital, numeracy, or communication skills.", "Compare current job descriptions and recognised training options."],
+    project: ["Organised records exercise", "Create a small fictional record-keeping or information workflow and explain how you would check it for accuracy."],
+    roles: [
+      ["accountant_market", "Accountant", "Moderate", "3.8", "B.Com"],
+      ["data_entry_mis_executive", "Data entry / MIS executive", "Low", "2.8", "12th / Graduate"],
+      ["proofreader_copy_editor", "Proofreader / copy editor", "Moderate", "3.0", "Bachelor’s"],
+      ["system_administrator", "System administrator", "High", "5.5", "BCA / B.Tech"],
+      ["storekeeper_inventory_clerk", "Storekeeper / inventory clerk", "Moderate", "2.6", "12th"],
+      ["payroll_executive", "Payroll executive", "Moderate", "3.5", "B.Com / Graduate"],
+      ["logistics_warehouse_executive", "Logistics / warehouse executive", "High", "3.2", "Graduate"],
+      ["bank_clerk_officer", "Bank clerk / officer", "Moderate", "5.0", "Graduate"],
+      ["postal_assistant", "Postal assistant", "Low", "4.0", "12th / Graduate"],
+      ["chartered_accountant_auditor", "Chartered accountant / auditor", "High", "8.0", "CA"],
+      ["tax_consultant", "Tax consultant", "Moderate", "5.0", "B.Com / CA / LLB"]
+    ]
+  }
+];
+
+CAREER_PROFILES.push(...CAREER_MARKET_GROUPS.flatMap((group) => group.roles.map(([id, title, growthOutlook, medianSalaryLpa, typicalEducation]) => ({
+  id,
+  title,
+  description: group.description,
+  category: group.category,
+  color: group.color,
+  dimensions: group.dimensions,
+  interests: group.interests,
+  skills: group.skills,
+  subjects: group.subjects,
+  goals: group.dimensions,
+  growthOutlook,
+  medianSalaryLpa,
+  typicalEducation,
+  educationSummary: `Typical education listed: ${typicalEducation}. Requirements vary by role, location, employer, and course; verify current details with official institutions and employers.`,
+  roadmap: group.roadmap,
+  project: group.project,
+  resource: ["National Career Service", "https://www.ncs.gov.in/", "Explore occupational information and career services"]
+}))));
+
 const QUIZ_QUESTIONS = [
-  {
-    statement: "I enjoy solving logical problems and finding patterns.",
-    dimensions: ["analytical", "technology", "problem solving"]
-  },
-  {
-    statement: "I enjoy helping people, understanding their needs, or supporting their wellbeing.",
-    dimensions: ["people", "health", "teaching", "social"]
-  },
-  {
-    statement: "I like expressing ideas through writing, art, design, videos, or other creative work.",
-    dimensions: ["creative", "design", "communication"]
-  },
-  {
-    statement: "I enjoy organising tasks, taking responsibility, or coordinating people.",
-    dimensions: ["organisation", "business", "leadership"]
-  },
-  {
-    statement: "I am curious about science, nature, research, or understanding how things work.",
-    dimensions: ["research", "science", "environment", "health"]
-  },
-  {
-    statement: "I enjoy building, repairing, experimenting, or working with practical tools.",
-    dimensions: ["practical", "hands_on", "problem solving", "science"]
-  },
-  {
-    statement: "I like analysing information and comparing evidence before making decisions.",
-    dimensions: ["analytical", "research", "business"]
-  },
-  {
-    statement: "I enjoy communicating ideas, presenting information, persuading others, or working with people.",
-    dimensions: ["communication", "people", "leadership", "teaching", "business"]
-  },
-  {
-    statement: "I would enjoy learning new technical, digital, business, or professional skills through practice.",
-    dimensions: ["technology", "business", "analytical", "practical"]
-  },
-  {
-    statement: "I prefer activities where I can create something useful and see the result of my work.",
-    dimensions: ["creative", "practical", "design", "problem solving"]
-  },
   {
     statement: "I enjoy designing and constructing customized furniture or wooden structures.",
     dimensions: ["creative", "design", "practical", "hands_on", "problem solving"]
@@ -1137,6 +1265,17 @@ function renderCareerCard(career, result = null, index = 0, extraText = "", incl
   const educationRequirements = career.educationRequirements || {};
   const educationDetails = includeEducationDetails
     ? `
+        ${career.growthOutlook
+          ? `<section class="career-market-snapshot" aria-label="Career outlook and typical pay">
+              <h4>Career snapshot</h4>
+              <dl>
+                <div><dt>Growth outlook</dt><dd>${escapeHTML(career.growthOutlook)}</dd></div>
+                <div><dt>Median pay</dt><dd>${career.medianSalaryLpa === "Varies" ? "Varies" : `₹${escapeHTML(career.medianSalaryLpa)} LPA`}</dd></div>
+                <div><dt>Typical education</dt><dd>${escapeHTML(career.typicalEducation)}</dd></div>
+              </dl>
+              <p>Indicative estimates from the supplied list; actual pay, outlook, and requirements vary. Verify current local information.</p>
+            </section>`
+          : ""}
         <h4>Education notes</h4>
         <p>${escapeHTML(educationRequirements.summary || "Education information is not yet available in this career profile.")}</p>
         ${result ? `<h4>How your background may relate</h4><p>${escapeHTML(getEducationFitNote(profile, career))}</p>` : ""}
@@ -1246,13 +1385,6 @@ function getQuizDimensionScores(answers) {
   }));
 }
 
-function getChosenDevelopmentFocus() {
-  const rating = quizAnswers[8];
-  return rating >= 4
-    ? QUIZ_QUESTIONS[8].dimensions.map((dimension) => DIMENSION_LABELS[dimension] || dimension)
-    : [];
-}
-
 function renderListItems(items) {
   if (!items.length) return "<p>Not enough information to suggest this yet.</p>";
   return `<ul>${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>`;
@@ -1317,13 +1449,10 @@ function renderDashboard(response) {
     return `<li><strong>${escapeHTML(DIMENSION_LABELS[dimension] || dimension)}</strong> — This interest area may be worth exploring (average ${dimensionWeights[dimension].mean.toFixed(1)}/5; ${dimensionWeights[dimension].percent}/100 of the scale range).</li>`;
   }).join("")}</ul>` : "<p>No dimensions were rated above neutral in this quiz. You can still explore every career; these answers do not measure ability or potential.</p>";
 
-  const explicitDevelopment = getChosenDevelopmentFocus();
   const careerSkills = [...new Set(response.results
     .slice(0, 3)
     .flatMap((result) => asList(result.careerProfile.skills && result.careerProfile.skills.required)))].slice(0, 4);
   document.querySelector("#development-results").innerHTML = `
-    <p><strong>You expressed interest in learning:</strong> Your response to statement 9 was ${quizAnswers[8]}/5${quizAnswers[8] >= 4 ? ", suggesting the listed skill areas may be worth exploring." : "; this is a preference rating, not a skill gap."}</p>
-    ${renderListItems(explicitDevelopment)}
     <p><strong>Skills that may be useful in your leading career ideas:</strong> These are learning opportunities, not inferred weaknesses.</p>
     ${renderListItems(careerSkills)}
   `;
@@ -1409,7 +1538,7 @@ function showQuizResults() {
     return;
   }
   profile.quizDimensionWeights = getQuizDimensionScores(quizAnswers);
-  profile.skillsToDevelop = getChosenDevelopmentFocus();
+  delete profile.skillsToDevelop;
   assessmentComplete = true;
   persistSessionState();
   window.location.href = "results.html";
@@ -1635,7 +1764,7 @@ function initializeResults() {
   }
 
   profile.quizDimensionWeights = getQuizDimensionScores(quizAnswers);
-  profile.skillsToDevelop = getChosenDevelopmentFocus();
+  delete profile.skillsToDevelop;
   persistSessionState();
   renderDashboard(buildRecommendationResponse(profile));
   resultsDashboard.hidden = false;
