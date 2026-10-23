@@ -27,6 +27,7 @@
 
       <div class="nav-links">
         <a href="#how-it-works">How it works</a>
+        <a href="#career-finder">Find your match</a>
         <a href="#careers">Career paths</a>
       </div>
 
@@ -42,9 +43,9 @@
           <h1>Find a career that feels <span class="highlight">like you.</span></h1>
           <p class="hero-description">Your interests are a great place to start. Explore career paths, discover what they involve, and get ready to shape a future that fits your goals.</p>
           <div class="hero-actions">
-            <button class="button button-primary explore-button" type="button" data-coming-soon>
+            <a class="button button-primary explore-button" href="#career-finder">
               Explore careers <span class="button-arrow" aria-hidden="true">→</span>
-            </button>
+            </a>
             <a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
           </div>
           <div class="hero-note">
@@ -108,55 +109,71 @@
       </div>
     </section>
 
+    <section class="finder-section section-pad" id="career-finder">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">A THOUGHTFUL FIRST STEP</span>
+          <h2>Find paths that fit <span class="highlight">your interests.</span></h2>
+          <p>Share anything you know so far. Every answer is optional, and your results explain what matched.</p>
+        </div>
+        <form class="finder-form" id="profile-form">
+          <div class="form-field">
+            <label for="interests">Interests <span>Separate answers with commas</span></label>
+            <input id="interests" name="interests" type="text" placeholder="e.g. problem solving, helping people">
+          </div>
+          <div class="form-field">
+            <label for="skills">Skills <span>Separate answers with commas</span></label>
+            <input id="skills" name="skills" type="text" placeholder="e.g. communication, basic Python">
+          </div>
+          <div class="form-field">
+            <label for="subjects">Favourite subjects <span>Separate answers with commas</span></label>
+            <input id="subjects" name="favouriteSubjects" type="text" placeholder="e.g. mathematics, art">
+          </div>
+          <div class="form-field">
+            <label for="goals">Goals <span>Separate answers with commas</span></label>
+            <input id="goals" name="goals" type="text" placeholder="e.g. creative work, social impact">
+          </div>
+          <div class="form-field">
+            <label for="education-level">Education level <span>Optional</span></label>
+            <select id="education-level" name="educationLevel">
+              <option value="">Choose if you like</option>
+              <option value="high_school">High school</option>
+              <option value="undergraduate">Undergraduate</option>
+              <option value="graduate">Graduate</option>
+              <option value="other">Other / not sure</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">Show my matches <span class="button-arrow" aria-hidden="true">→</span></button>
+            <button class="button button-outline" id="clear-profile" type="reset">Clear answers</button>
+          </div>
+        </form>
+        <p class="matching-note">Matches use a transparent, rule-based score—not a trained AI/ML model. Scores compare your answers with available profile data; they do not predict success.</p>
+        <div class="results-heading" id="recommendation-heading" hidden>
+          <h3>Your possible matches</h3>
+          <p id="recommendation-summary" role="status" aria-live="polite"></p>
+        </div>
+        <div class="career-grid recommendation-grid" id="recommendation-results" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="careers-section section-pad" id="careers">
       <div class="container">
         <div class="careers-heading">
           <div class="section-heading section-heading-left">
             <span class="eyebrow">ROOM TO FIND YOUR THING</span>
             <h2>Explore fields that <span class="highlight">spark curiosity.</span></h2>
-            <p>Here are a few places to start exploring. There’s no one-size-fits-all path.</p>
+            <p>Search career titles, aliases, skills, and domains. Search results are not personalized recommendations.</p>
           </div>
-          <span class="category-count">01 — 06</span>
+          <span class="category-count" id="career-count"></span>
         </div>
-        <div class="career-grid">
-          <article class="career-card career-violet">
-            <div class="career-card-top"><span class="career-icon" aria-hidden="true">&lt;/&gt;</span><span class="career-index">FIELD 01</span></div>
-            <h3>Software Development</h3>
-            <p>Build the apps, websites, and tools people use every day.</p>
-            <span class="career-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="career-card career-blue">
-            <div class="career-card-top"><span class="career-icon" aria-hidden="true">✳</span><span class="career-index">FIELD 02</span></div>
-            <h3>AI &amp; Machine Learning</h3>
-            <p>Teach computers to learn from data and solve new problems.</p>
-            <span class="career-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="career-card career-peach">
-            <div class="career-card-top"><span class="career-icon" aria-hidden="true">▥</span><span class="career-index">FIELD 03</span></div>
-            <h3>Data Analytics</h3>
-            <p>Turn information into insights that help people make decisions.</p>
-            <span class="career-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="career-card career-mint">
-            <div class="career-card-top"><span class="career-icon" aria-hidden="true">⬡</span><span class="career-index">FIELD 04</span></div>
-            <h3>Cybersecurity</h3>
-            <p>Help protect digital systems, information, and people online.</p>
-            <span class="career-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="career-card career-yellow">
-            <div class="career-card-top"><span class="career-icon" aria-hidden="true">⚙</span><span class="career-index">FIELD 05</span></div>
-            <h3>Robotics</h3>
-            <p>Bring machines to life by combining hardware and intelligent software.</p>
-            <span class="career-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="career-card career-pink">
-            <div class="career-card-top"><span class="career-icon" aria-hidden="true">✎</span><span class="career-index">FIELD 06</span></div>
-            <h3>UI/UX Design</h3>
-            <p>Make digital products easier and more enjoyable for people to use.</p>
-            <span class="career-arrow" aria-hidden="true">↗</span>
-          </article>
+        <div class="search-field">
+          <label for="career-search">Search careers</label>
+          <input id="career-search" type="search" placeholder="Try a title, skill, or domain" autocomplete="off">
         </div>
-        <p class="careers-footnote"><span aria-hidden="true">✦</span> These are starting points for exploration—not recommendations.</p>
+        <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+        <div class="career-grid" id="career-results" aria-live="polite"></div>
+        <p class="careers-footnote"><span aria-hidden="true">✦</span> Starting points for exploration—not promises about a career outcome.</p>
       </div>
     </section>
   </main>
@@ -181,10 +198,5 @@
     </div>
   </footer>
 
-  <div class="toast" id="coming-soon-message" role="status" aria-live="polite" aria-atomic="true" hidden>
-    <span class="toast-icon" aria-hidden="true">✦</span>
-    <span><strong>Coming soon</strong><br>Personalized career exploration is in the works.</span>
-    <button class="toast-close" type="button" aria-label="Dismiss message">×</button>
-  </div>
 </body>
 </html>
