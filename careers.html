@@ -39,5 +39,24 @@
     <section class="final-cta section-pad"><div class="container final-cta-inner"><div><span class="eyebrow">YOUR NEXT STEP CAN START HERE</span><h2>Ready to explore <span class="highlight">what fits you?</span></h2><p>Take the 70-statement career discovery assessment and see directions worth exploring.</p></div><a class="button button-primary" href="quiz.html?start=1">Find my career <span aria-hidden="true">→</span></a></div></section>
   </main>
   <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="index.html" aria-label="Spectra home"><span class="brand-mark" aria-hidden="true"><img class="brand-logo-dark" src="logo-dark.jpeg" alt=""></span><span>Spectra</span></a><p>Helping you take the first step toward what’s next.</p><a class="footer-top-link" href="about.html">How it works</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> Spectra. Made for curious minds.</span><span>Explore with curiosity. Choose with confidence.</span></div></footer>
+  <script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2026/10/23/18/20261023184047-CG2Y98YD.js" defer></script>
+  <script>
+    const resizeBotpressLauncher = () => {
+      const shadowRoot = document.querySelector("#fab-root")?.shadowRoot;
+      if (!shadowRoot || shadowRoot.querySelector("#spectra-botpress-launcher-size")) return false;
+      const style = document.createElement("style");
+      style.id = "spectra-botpress-launcher-size";
+      style.textContent = ".bpFab { width: 52px !important; height: 52px !important; }";
+      shadowRoot.append(style);
+      return true;
+    };
+
+    const botpressLauncherObserver = new MutationObserver(() => {
+      if (resizeBotpressLauncher()) botpressLauncherObserver.disconnect();
+    });
+    botpressLauncherObserver.observe(document.documentElement, { childList: true, subtree: true });
+    if (resizeBotpressLauncher()) botpressLauncherObserver.disconnect();
+  </script>
 </body>
 </html>

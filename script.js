@@ -1132,9 +1132,19 @@ function renderResources(resources) {
   `).join("")}</ul>`;
 }
 
-function renderCareerCard(career, result = null, index = 0, extraText = "") {
+function renderCareerCard(career, result = null, index = 0, extraText = "", includeEducationDetails = true) {
   const skills = career.skills || {};
   const educationRequirements = career.educationRequirements || {};
+  const educationDetails = includeEducationDetails
+    ? `
+        <h4>Education notes</h4>
+        <p>${escapeHTML(educationRequirements.summary || "Education information is not yet available in this career profile.")}</p>
+        ${result ? `<h4>How your background may relate</h4><p>${escapeHTML(getEducationFitNote(profile, career))}</p>` : ""}
+        <h4>Possible study pathways</h4>
+        ${renderList(career.pathways)}
+        <p class="profile-data-note">Career information is a starting point. Check current requirements with schools and employers.</p>
+      `
+    : "";
   const matchBadge = result
     ? result.score === null
       ? '<span class="match-badge match-unscored">Not enough data to score</span>'
@@ -1187,12 +1197,7 @@ function renderCareerCard(career, result = null, index = 0, extraText = "") {
         ${renderList(skills.helpful)}
         <h4>Relevant subjects</h4>
         ${renderList(career.subjects)}
-        <h4>Education notes</h4>
-        <p>${escapeHTML(educationRequirements.summary || "Education information is not yet available in this career profile.")}</p>
-        ${result ? `<h4>How your background may relate</h4><p>${escapeHTML(getEducationFitNote(profile, career))}</p>` : ""}
-        <h4>Possible study pathways</h4>
-        ${renderList(career.pathways)}
-        <p class="profile-data-note">Career information is a starting point. Check current requirements with schools and employers.</p>
+        ${educationDetails}
       </details>
       <a class="button button-outline career-roadmap-link" href="roadmap.html?career=${encodeURIComponent(career.id)}">Explore learning roadmap <span aria-hidden="true">→</span></a>
     </article>
@@ -1253,8 +1258,50 @@ function renderListItems(items) {
   return `<ul>${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>`;
 }
 
+function renderResultsVisuals(dimensionWeights) {
+  const answeredCount = quizAnswers.filter((rating) => Number.isInteger(rating) && rating >= 1 && rating <= 5).length;
+  const answeredCountElement = document.querySelector("#answered-count");
+  const dimensionBars = document.querySelector("#interest-score-bars");
+  const distribution = document.querySelector("#rating-distribution");
+  if (!answeredCountElement || !dimensionBars || !distribution) return;
+
+  answeredCountElement.textContent = `${answeredCount} / ${QUIZ_QUESTIONS.length} ANSWERED`;
+  const leadingDimensions = Object.entries(dimensionWeights)
+    .sort((a, b) => b[1].mean - a[1].mean || (DIMENSION_LABELS[a[0]] || a[0]).localeCompare(DIMENSION_LABELS[b[0]] || b[0]))
+    .slice(0, 6);
+  dimensionBars.innerHTML = leadingDimensions.map(([dimension, result]) => {
+    const label = DIMENSION_LABELS[dimension] || dimension;
+    return `
+      <div class="interest-score">
+        <div class="interest-score-label"><span>${escapeHTML(label)}</span><strong>${result.percent}%</strong></div>
+        <div class="interest-score-track" role="progressbar" aria-label="${escapeHTML(label)} interest score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${result.percent}" aria-valuetext="${result.percent} out of 100; neutral is 50">
+          <span class="interest-score-fill" style="--score-width: ${result.percent}%"></span>
+        </div>
+        <span class="interest-score-detail">Average ${result.mean.toFixed(1)} / 5 · ${result.responses} mapped answers</span>
+      </div>
+    `;
+  }).join("");
+
+  const ratingCounts = [1, 2, 3, 4, 5].map((rating) => quizAnswers.filter((answer) => answer === rating).length);
+  const maxCount = Math.max(...ratingCounts, 1);
+  distribution.setAttribute("aria-label", `Rating counts from ${answeredCount} answers: ${ratingCounts.map((count, index) => `rating ${index + 1}, ${count}`).join("; ")}.`);
+  distribution.innerHTML = `
+    <div class="rating-chart-axis" aria-hidden="true"><span>${maxCount}</span><span>${Math.ceil(maxCount / 2)}</span><span>0</span></div>
+    <div class="rating-chart-bars">
+      ${ratingCounts.map((count, index) => `
+        <div class="rating-chart-column">
+          <span class="rating-chart-count">${count}</span>
+          <span class="rating-chart-track"><span class="rating-chart-bar rating-chart-bar-${index + 1}" style="--bar-height: ${count / maxCount * 100}%"></span></span>
+          <span class="rating-chart-label">${index + 1}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
 function renderDashboard(response) {
   const dimensionWeights = profile.quizDimensionWeights;
+  renderResultsVisuals(dimensionWeights);
   const strongestDimensions = Object.entries(dimensionWeights)
     .sort((a, b) => b[1].mean - a[1].mean || (DIMENSION_LABELS[a[0]] || a[0]).localeCompare(DIMENSION_LABELS[b[0]] || b[0]))
     .filter(([, result]) => result.mean > 3)
@@ -1267,13 +1314,7 @@ function renderDashboard(response) {
   recommendationSummary.textContent = `${interestSummary} Dimension scores are calculated as the mean of the 1–5 agreement ratings mapped to each dimension, then converted with ((mean − 1) ÷ 4) × 100; neutral is the midpoint (50). We compared your answers with ${CAREER_PROFILES.length} career profiles and show up to five profiles with the strongest available overlap.`;
 
   document.querySelector("#strengths-results").innerHTML = strongestDimensions.length ? `<ul>${strongestDimensions.map(([dimension]) => {
-    const supportingAnswers = quizAnswers.reduce((questions, rating, questionIndex) => {
-      if (QUIZ_QUESTIONS[questionIndex].dimensions.includes(dimension)) {
-        questions.push(`Q${questionIndex + 1} (${rating}/5)`);
-      }
-      return questions;
-    }, []);
-    return `<li><strong>${escapeHTML(DIMENSION_LABELS[dimension] || dimension)}</strong> — Your answers suggest this may be worth exploring (average ${dimensionWeights[dimension].mean.toFixed(1)}/5; ${dimensionWeights[dimension].percent}/100 of the scale range). Responses: ${supportingAnswers.join(", ")}.</li>`;
+    return `<li><strong>${escapeHTML(DIMENSION_LABELS[dimension] || dimension)}</strong> — This interest area may be worth exploring (average ${dimensionWeights[dimension].mean.toFixed(1)}/5; ${dimensionWeights[dimension].percent}/100 of the scale range).</li>`;
   }).join("")}</ul>` : "<p>No dimensions were rated above neutral in this quiz. You can still explore every career; these answers do not measure ability or potential.</p>";
 
   const explicitDevelopment = getChosenDevelopmentFocus();
@@ -1291,43 +1332,11 @@ function renderDashboard(response) {
     <p>${topLabels.length
       ? `Your ratings suggest interest in activities involving ${topLabels.join(", ")}. This is a snapshot of stated preferences, not a permanent personality type.`
       : "Your answers did not show a preference above neutral for one particular work-style dimension. This is not a weakness or a fixed classification."}</p>
-    <details class="answer-review">
-      <summary>Review your ${QUIZ_QUESTIONS.length} answers</summary>
-      <ol>${quizAnswers.map((rating, index) => `<li><strong>${escapeHTML(QUIZ_QUESTIONS[index].statement)}</strong> — ${rating}/5 (${["", "Strongly Disagree", "Disagree", "Neutral / Not Sure", "Agree", "Strongly Agree"][rating]}).</li>`).join("")}</ol>
-    </details>
   `;
-
-  const stageLabels = {
-    school_8_below: "Class 8 or below", class_9_10: "Class 9–10", class_11_12: "Class 11–12",
-    diploma: "Diploma or polytechnic", undergraduate: "Undergraduate", postgraduate: "Postgraduate",
-    working: "Graduate or working professional", other: "Other / undecided"
-  };
-  const streamLabels = {
-    pcm: "Science PCM", pcb: "Science PCB", pcmb: "Science PCMB",
-    commerce_math: "Commerce with Mathematics", commerce: "Commerce without Mathematics",
-    arts: "Arts and Humanities", vocational: "Vocational", diploma: "Diploma / Polytechnic",
-    other: "Other", undecided: "Not decided yet"
-  };
-  const educationLines = [
-    `Education stage: ${stageLabels[profile.educationStage] || "not provided"}.`,
-    `Stream: ${streamLabels[profile.educationStream] || "not provided"}.`,
-    `Preferred location: ${profile.studyLocation === "india" ? "India" : profile.studyLocation === "abroad" ? "Abroad" : profile.studyLocation === "either" ? "Either / undecided" : "not provided"}.`,
-    `Study preference: ${({
-      long: "open to longer study",
-      affordable: "prefer affordable pathways",
-      short: "interested in shorter skill-based pathways"
-    })[profile.studyPreference] || "not provided"}.`,
-    "Stream and stage inform pathway notes but never automatically remove a career from your results.",
-    "Check official institution and regulator sources for current prerequisites, entrance exams, qualifications, and location-specific rules."
-  ];
-  if (profile.difficultSubjects && profile.difficultSubjects.length) {
-    educationLines.push(`You mentioned preferring to avoid: ${profile.difficultSubjects.join(", ")}. This was not used to penalise or remove a career.`);
-  }
-  document.querySelector("#education-results").innerHTML = `<ul>${educationLines.map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul>`;
 
   recommendationResults.innerHTML = response.results.length ? response.results.map((result, index) => {
     const career = CAREER_PROFILES.find((item) => item.id === result.careerId);
-    return renderCareerCard(career, result, index);
+    return renderCareerCard(career, result, index, "", false);
   }).join("") : '<p class="empty-state">No career profile passed the exploratory match threshold for these answers. This does not mean you lack potential. Browse all career paths below or retake the quiz with answers that best reflect your preferences.</p>';
 
   const excludedIds = new Set(response.results.map((result) => result.careerId));
@@ -1346,7 +1355,7 @@ function renderDashboard(response) {
       const reason = relatedDimensions.length
         ? `Worth exploring because your quiz also touched on ${relatedDimensions.join(", ")}.`
         : "A different direction to browse beyond your strongest profile overlaps.";
-      return renderCareerCard(career, null, index, reason);
+      return renderCareerCard(career, null, index, reason, false);
     }).join("");
   document.querySelector("#alternative-section").hidden = alternatives.length === 0;
 }

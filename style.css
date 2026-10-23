@@ -932,7 +932,7 @@ summary:focus-visible {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -941,7 +941,32 @@ summary:focus-visible {
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: #fff;
+  background: var(--surface);
+}
+
+.results-dashboard .results-insights > .dashboard-panel:first-child {
+  border-top: 3px solid #2f9eaa;
+  background: linear-gradient(145deg, rgb(47 158 170 / 10%), var(--surface) 62%);
+}
+
+.results-dashboard .results-insights > .dashboard-panel:last-child {
+  border-top: 3px solid #8764cf;
+  background: linear-gradient(145deg, rgb(135 100 207 / 10%), var(--surface) 62%);
+}
+
+.results-dashboard .dashboard-grid > .dashboard-panel:nth-child(1) {
+  border-top: 3px solid #e58a45;
+  background: linear-gradient(145deg, rgb(229 138 69 / 10%), var(--surface) 64%);
+}
+
+.results-dashboard .dashboard-grid > .dashboard-panel:nth-child(2) {
+  border-top: 3px solid #d56491;
+  background: linear-gradient(145deg, rgb(213 100 145 / 10%), var(--surface) 64%);
+}
+
+.results-dashboard .dashboard-grid > .dashboard-panel:nth-child(3) {
+  border-top: 3px solid #557fd1;
+  background: linear-gradient(145deg, rgb(85 127 209 / 10%), var(--surface) 64%);
 }
 
 .dashboard-panel h3 {
@@ -967,6 +992,226 @@ summary:focus-visible {
 .dashboard-panel li + li,
 .career-details li + li {
   margin-top: 7px;
+}
+
+.results-insights {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 16px;
+}
+
+.insight-panel {
+  padding: clamp(18px, 3vw, 26px);
+}
+
+.insight-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.insight-heading .eyebrow {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.insight-heading h3 {
+  margin: 7px 0 0;
+  font-family: var(--heading-font);
+  font-size: 19px;
+  letter-spacing: -0.03em;
+}
+
+.insight-count {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: var(--sage);
+  color: var(--green-dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.insight-description,
+.chart-footnote {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.insight-description {
+  margin: 12px 0 20px;
+}
+
+.interest-score-list {
+  display: grid;
+  gap: 15px;
+}
+
+.interest-score {
+  display: grid;
+  gap: 6px;
+}
+
+.interest-score-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.interest-score-label strong {
+  color: var(--score-end, var(--green-dark));
+  font-variant-numeric: tabular-nums;
+}
+
+.interest-score:nth-child(6n + 1) { --score-start: #2f9eaa; --score-end: #287c86; }
+.interest-score:nth-child(6n + 2) { --score-start: #8764cf; --score-end: #6d4bb0; }
+.interest-score:nth-child(6n + 3) { --score-start: #e58a45; --score-end: #bb6428; }
+.interest-score:nth-child(6n + 4) { --score-start: #d56491; --score-end: #b24773; }
+.interest-score:nth-child(6n + 5) { --score-start: #557fd1; --score-end: #3d62ad; }
+.interest-score:nth-child(6n) { --score-start: #56a66f; --score-end: #367b4e; }
+
+.interest-score-track {
+  position: relative;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--sage);
+}
+
+.interest-score-track::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--muted);
+  content: "";
+  opacity: 0.6;
+}
+
+.interest-score-fill {
+  display: block;
+  width: var(--score-width);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--score-start, var(--teal)), var(--score-end, var(--green)));
+}
+
+.interest-score-detail {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.chart-footnote {
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+}
+
+.rating-chart {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  height: 185px;
+  margin: 8px 0 0;
+}
+
+.rating-chart-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 0 25px;
+  color: var(--muted);
+  font-size: 10px;
+  text-align: right;
+}
+
+.rating-chart-bars {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 2vw, 18px);
+  border-bottom: 1px solid var(--line-strong);
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(50% - 1px), var(--line) 50%, transparent calc(50% + 1px));
+}
+
+.rating-chart-column {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: 20px minmax(0, 1fr) 24px;
+  justify-items: center;
+  gap: 4px;
+}
+
+.rating-chart-count {
+  color: var(--ink-soft);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rating-chart-track {
+  display: flex;
+  width: min(100%, 36px);
+  height: 100%;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 6px 6px 0 0;
+}
+
+.rating-chart-bar {
+  display: block;
+  width: 100%;
+  height: var(--bar-height);
+  min-height: 0;
+  border-radius: 6px 6px 0 0;
+  background: var(--teal);
+  transition: height 350ms ease;
+}
+
+.rating-chart-bar-1,
+.rating-chart-bar-1 {
+  background: #dc6470;
+}
+
+.rating-chart-bar-2 {
+  background: #e79543;
+}
+
+.rating-chart-bar-3 {
+  background: #d0a832;
+}
+
+.rating-chart-bar-4 {
+  background: #2f9eaa;
+}
+
+.rating-chart-bar-5 {
+  background: #8764cf;
+}
+
+.rating-chart-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.rating-legend {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .answer-review {
@@ -1601,6 +1846,10 @@ summary:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .results-insights {
+    grid-template-columns: 1fr;
+  }
+
   .careers-heading {
     align-items: flex-start;
     flex-direction: column;
@@ -1743,6 +1992,42 @@ summary:focus-visible {
 
 [data-theme="dark"] .likert-point input:checked + .likert-dot {
   box-shadow: inset 0 0 0 4px var(--surface);
+}
+
+[data-theme="dark"] .rating-chart-bar-3 {
+  background: #e0bd58;
+}
+
+[data-theme="dark"] .interest-score:nth-child(6n + 1) { --score-start: #63d0d8; --score-end: #45b6c0; }
+[data-theme="dark"] .interest-score:nth-child(6n + 2) { --score-start: #b89af4; --score-end: #a180e8; }
+[data-theme="dark"] .interest-score:nth-child(6n + 3) { --score-start: #ffb16f; --score-end: #f3944e; }
+[data-theme="dark"] .interest-score:nth-child(6n + 4) { --score-start: #f28ab1; --score-end: #e56e9b; }
+[data-theme="dark"] .interest-score:nth-child(6n + 5) { --score-start: #8fb1ff; --score-end: #7195ec; }
+[data-theme="dark"] .interest-score:nth-child(6n) { --score-start: #83d99c; --score-end: #62be7f; }
+
+[data-theme="dark"] .rating-chart-bar-1 { background: #f27f88; }
+[data-theme="dark"] .rating-chart-bar-2 { background: #ffb16f; }
+[data-theme="dark"] .rating-chart-bar-4 { background: #63d0d8; }
+[data-theme="dark"] .rating-chart-bar-5 { background: #b89af4; }
+
+[data-theme="dark"] .results-dashboard .results-insights > .dashboard-panel:first-child {
+  background: linear-gradient(145deg, rgb(69 182 192 / 13%), var(--surface) 62%);
+}
+
+[data-theme="dark"] .results-dashboard .results-insights > .dashboard-panel:last-child {
+  background: linear-gradient(145deg, rgb(161 128 232 / 13%), var(--surface) 62%);
+}
+
+[data-theme="dark"] .results-dashboard .dashboard-grid > .dashboard-panel:nth-child(1) {
+  background: linear-gradient(145deg, rgb(243 148 78 / 13%), var(--surface) 64%);
+}
+
+[data-theme="dark"] .results-dashboard .dashboard-grid > .dashboard-panel:nth-child(2) {
+  background: linear-gradient(145deg, rgb(229 110 155 / 13%), var(--surface) 64%);
+}
+
+[data-theme="dark"] .results-dashboard .dashboard-grid > .dashboard-panel:nth-child(3) {
+  background: linear-gradient(145deg, rgb(113 149 236 / 13%), var(--surface) 64%);
 }
 
 [data-theme="dark"] .quiz-progress,
