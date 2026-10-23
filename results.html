@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f8faf7">
+  <meta name="description" content="Review your personalized career exploration results with Spectra."><title>Your results — Spectra</title>
+  <script>(()=>{let theme;try{theme=localStorage.getItem("spectra-theme")}catch(error){console.warn("Could not read the saved theme preference.",error)}document.documentElement.dataset.theme=theme==="light"||theme==="dark"?theme:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"><script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><nav class="navbar container" aria-label="Main navigation">
+    <a class="brand" href="index.html" aria-label="Spectra home"><span class="brand-mark" aria-hidden="true"><img class="brand-logo-light" src="logo-light.jpeg" alt=""><img class="brand-logo-dark" src="logo-dark.jpeg" alt=""></span><span>Spectra</span></a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="nav-links"><span class="nav-hover-bg" aria-hidden="true"></span><a class="nav-link" href="index.html">Home</a><a class="nav-link" href="careers.html">Explore careers</a><a class="nav-link" href="quiz.html">Career quiz</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="about.html">How it works</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l-1.42 1.42m11.3-11.3 1.42-1.42"></path></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"></path></svg></button>
+    </div><a class="button button-small button-primary nav-cta" href="quiz.html">Find my career <span aria-hidden="true">→</span></a>
+  </nav></header>
+  <main><section class="quiz-section section-pad"><div class="container">
+    <div class="section-heading"><span class="eyebrow">A STARTING POINT, NOT A FINAL ANSWER</span><h1>Your career discovery summary</h1><p>Explore your results as a starting point for reflection—not a measure of ability or a prediction of success.</p></div>
+    <div class="empty-state" id="results-empty" hidden><p>Complete the 10-question quiz to see personalized career matches and scores.</p><a class="button button-primary" href="quiz.html">Go to the career quiz <span aria-hidden="true">→</span></a></div>
+    <section class="results-dashboard" id="results-dashboard" aria-labelledby="results-title" hidden>
+      <div class="results-heading"><span class="eyebrow">A STARTING POINT, NOT A FINAL ANSWER</span><h2 id="results-title">Your career discovery summary</h2><p id="recommendation-summary" role="status" aria-live="polite"></p></div>
+      <div class="dashboard-grid">
+        <article class="dashboard-panel"><h3>Possible strengths to explore</h3><div id="strengths-results"></div></article>
+        <article class="dashboard-panel"><h3>Skills to develop</h3><div id="development-results"></div></article>
+        <article class="dashboard-panel"><h3>Your preferred work style</h3><div id="workstyle-results"></div></article>
+        <article class="dashboard-panel"><h3>Education &amp; eligibility notes</h3><div id="education-results"></div></article>
+      </div>
+      <div class="results-heading"><h3>Your possible career directions</h3><p>Each interest dimension averages the ratings (1–5) of statements mapped to it, then converts that mean using ((mean − 1) ÷ 4) × 100. Neutral maps to 50, not a weakness. Career scores average the mapped dimension percentages; when profile tags are comparable, the score is 70% quiz and 30% profile overlap. The profile component compares provided interests, skills, subjects, and goals with tags in each career profile. These are exploratory preferences—not ability measures or success odds. Career titles describe fields or occupations, not degree programs, entrance exams, or qualifications.</p></div>
+      <div class="career-grid recommendation-grid" id="recommendation-results" aria-live="polite"></div>
+      <section class="alternative-section" id="alternative-section"><div class="results-heading"><h3>Other directions to explore</h3><p>These are different career profiles from across the explorer; browse them with curiosity, not as ranked matches.</p></div><div class="career-grid" id="alternative-results"></div></section>
+      <article class="dashboard-panel reflection-panel"><h3>Questions to reflect on</h3><ul><li>Which suggested activity would you like to try first?</li><li>Would you enjoy the day-to-day tasks involved in this career?</li><li>What would you like to learn more about?</li><li>Who could you ask for advice, such as a trusted teacher or counsellor?</li></ul></article>
+      <div class="results-actions"><a class="button button-outline" href="quiz.html?review=1">Review my answers</a><a class="button button-primary" href="quiz.html?restart=1">Start over</a><a class="button button-outline" href="roadmap.html">Explore a learning roadmap</a></div>
+      <p class="matching-note">These exploratory suggestions are not guarantees or professional counselling. Check current eligibility and admission details with official institutions, and discuss important choices with a trusted teacher, guardian, or qualified counsellor.</p>
+    </section>
+  </div></section></main>
+  <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="index.html" aria-label="Spectra home"><span class="brand-mark" aria-hidden="true"><img class="brand-logo-dark" src="logo-dark.jpeg" alt=""></span><span>Spectra</span></a><p>Helping you take the first step toward what’s next.</p><a class="footer-top-link" href="about.html">How it works</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> Spectra. Made for curious minds.</span><span>Explore with curiosity. Choose with confidence.</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f8faf7">
+  <meta name="description" content="Answer a short career exploration quiz and discover directions to explore."><title>Career quiz — Spectra</title>
+  <script>(()=>{let theme;try{theme=localStorage.getItem("spectra-theme")}catch(error){console.warn("Could not read the saved theme preference.",error)}document.documentElement.dataset.theme=theme==="light"||theme==="dark"?theme:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"><script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><nav class="navbar container" aria-label="Main navigation">
+    <a class="brand" href="index.html" aria-label="Spectra home"><span class="brand-mark" aria-hidden="true"><img class="brand-logo-light" src="logo-light.jpeg" alt=""><img class="brand-logo-dark" src="logo-dark.jpeg" alt=""></span><span>Spectra</span></a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="nav-links"><span class="nav-hover-bg" aria-hidden="true"></span><a class="nav-link" href="index.html">Home</a><a class="nav-link" href="careers.html">Explore careers</a><a class="nav-link" href="quiz.html">Career quiz</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="about.html">How it works</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"></path></svg></button>
+    </div><a class="button button-small button-primary nav-cta" href="quiz.html">Find my career <span aria-hidden="true">→</span></a>
+  </nav></header>
+  <main>
+    <section class="finder-section section-pad" id="profile-section">
+      <div class="container"><div class="section-heading"><span class="eyebrow">START WITH YOUR CONTEXT</span><h1>Your background <span class="highlight">is part of your story.</span></h1><p>Share whichever details feel useful. Your education informs pathway notes; it does not limit which careers you may explore.</p></div>
+        <form class="finder-form" id="profile-form">
+          <div class="form-field"><label for="education-stage">Current education stage <span>Optional</span></label><select id="education-stage" name="educationStage"><option value="">Choose if you like</option><option value="school_8_below">Class 8 or below</option><option value="class_9_10">Class 9–10</option><option value="class_11_12">Class 11–12</option><option value="diploma">Diploma or polytechnic</option><option value="undergraduate">Undergraduate</option><option value="postgraduate">Postgraduate</option><option value="working">Graduate or working professional</option><option value="other">Other / undecided</option></select></div>
+          <div class="form-field"><label for="education-stream">Current or most recent stream <span>Optional</span></label><select id="education-stream" name="educationStream"><option value="">Choose if you like</option><option value="pcm">Science PCM</option><option value="pcb">Science PCB</option><option value="pcmb">Science PCMB</option><option value="commerce_math">Commerce with Mathematics</option><option value="commerce">Commerce without Mathematics</option><option value="arts">Arts and Humanities</option><option value="vocational">Vocational</option><option value="diploma">Diploma / Polytechnic</option><option value="other">Other</option><option value="undecided">Not decided yet</option></select></div>
+          <div class="form-field"><label for="interests">Interests <span>Optional; separate with commas</span></label><input id="interests" name="interests" type="text" placeholder="e.g. problem solving, helping people"></div>
+          <div class="form-field"><label for="skills">Skills you want to use <span>Optional; separate with commas</span></label><input id="skills" name="skills" type="text" placeholder="e.g. communication, basic Python"></div>
+          <div class="form-field"><label for="subjects">Favourite subjects <span>Optional</span></label><input id="subjects" name="favouriteSubjects" type="text" placeholder="e.g. mathematics, art"></div>
+          <div class="form-field"><label for="difficult-subjects">Subjects you find difficult or prefer to avoid <span>Optional</span></label><input id="difficult-subjects" name="difficultSubjects" type="text" placeholder="e.g. public speaking, advanced maths"></div>
+          <div class="form-field"><label for="goals">What you hope for <span>Optional; separate with commas</span></label><input id="goals" name="goals" type="text" placeholder="e.g. creative work, social impact"></div>
+          <div class="form-field"><label for="study-location">Preferred study or work location <span>Optional</span></label><select id="study-location" name="studyLocation"><option value="">Choose if you like</option><option value="india">In India</option><option value="abroad">Abroad</option><option value="either">Either / undecided</option></select></div>
+          <div class="form-field"><label for="study-preference">Study or training preference <span>Optional</span></label><select id="study-preference" name="studyPreference"><option value="">No preference / not sure</option><option value="long">Open to longer study</option><option value="affordable">Prefer affordable pathways</option><option value="short">Interested in shorter, skill-based pathways</option></select></div>
+          <div class="form-actions"><button class="button button-primary" type="submit">Continue to the 10-question quiz <span class="button-arrow" aria-hidden="true">→</span></button><button class="button button-outline" id="clear-profile" type="reset">Clear background details</button></div>
+        </form>
+        <p class="matching-note">You can continue without filling in any of these fields. Your answers stay in this browser session; they are not sent to an AI service.</p>
+      </div>
+    </section>
+    <section class="quiz-section section-pad" id="career-finder">
+      <div class="container"><div class="section-heading"><span class="eyebrow">YOUR CAREER DISCOVERY</span><h2>Start with what <span class="highlight">interests you.</span></h2><p>You don't need to know your dream career yet. Answer honestly to explore interests, preferred working style, possible strengths, and career directions worth investigating.</p></div>
+        <div class="quiz-start" id="quiz-start"><button class="button button-primary" id="start-quiz" type="button">Start the 10-question quiz <span class="button-arrow" aria-hidden="true">→</span></button><p>10 short statements · 5-point scale · go back any time to change an answer.</p></div>
+        <form class="quiz-panel" id="career-quiz" hidden novalidate>
+          <div class="quiz-progress-row"><span class="quiz-progress-label" id="quiz-progress-label" aria-live="polite">Question 1 of 10</span><span class="quiz-progress-hint">Choose one rating to continue</span></div>
+          <progress class="quiz-progress" id="quiz-progress" max="10" value="1" aria-label="Quiz progress"></progress>
+          <div id="quiz-question" class="quiz-question" role="group" aria-labelledby="quiz-question-title"></div>
+          <p class="quiz-error" id="quiz-error" role="alert" hidden>Please select a rating to continue.</p>
+          <div class="quiz-actions"><button class="button button-outline" id="quiz-back" type="button">← Back</button></div>
+          <p class="quiz-disclaimer">Scale: Strongly Disagree · Disagree · Neutral / Not Sure · Agree · Strongly Agree. Answers describe your preferences today—not verified ability or a clinical assessment.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="index.html" aria-label="Spectra home"><span class="brand-mark" aria-hidden="true"><img class="brand-logo-dark" src="logo-dark.jpeg" alt=""></span><span>Spectra</span></a><p>Helping you take the first step toward what’s next.</p><a class="footer-top-link" href="about.html">How it works</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> Spectra. Made for curious minds.</span><span>Explore with curiosity. Choose with confidence.</span></div></footer>
+</body>
+</html>
