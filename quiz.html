@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f8faf7">
-  <meta name="description" content="Answer a short career exploration quiz and discover directions to explore."><title>Career quiz — Spectra</title>
+  <meta name="description" content="Answer 70 career exploration statements and discover directions to explore."><title>Career quiz — Spectra</title>
   <script>(()=>{let theme;try{theme=localStorage.getItem("spectra-theme")}catch(error){console.warn("Could not read the saved theme preference.",error)}document.documentElement.dataset.theme=theme==="light"||theme==="dark"?theme:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,17 +29,21 @@
           <div class="form-field"><label for="goals">What you hope for <span>Optional; separate with commas</span></label><input id="goals" name="goals" type="text" placeholder="e.g. creative work, social impact"></div>
           <div class="form-field"><label for="study-location">Preferred study or work location <span>Optional</span></label><select id="study-location" name="studyLocation"><option value="">Choose if you like</option><option value="india">In India</option><option value="abroad">Abroad</option><option value="either">Either / undecided</option></select></div>
           <div class="form-field"><label for="study-preference">Study or training preference <span>Optional</span></label><select id="study-preference" name="studyPreference"><option value="">No preference / not sure</option><option value="long">Open to longer study</option><option value="affordable">Prefer affordable pathways</option><option value="short">Interested in shorter, skill-based pathways</option></select></div>
-          <div class="form-actions"><button class="button button-primary" type="submit">Continue to the 10-question quiz <span class="button-arrow" aria-hidden="true">→</span></button><button class="button button-outline" id="clear-profile" type="reset">Clear background details</button></div>
+          <div class="form-actions"><button class="button button-primary" type="submit">Continue to the quiz <span class="button-arrow" aria-hidden="true">→</span></button><button class="button button-outline" id="clear-profile" type="reset">Clear background details</button></div>
         </form>
         <p class="matching-note">You can continue without filling in any of these fields. Your answers stay in this browser session; they are not sent to an AI service.</p>
       </div>
     </section>
     <section class="quiz-section section-pad" id="career-finder">
       <div class="container"><div class="section-heading"><span class="eyebrow">YOUR CAREER DISCOVERY</span><h2>Start with what <span class="highlight">interests you.</span></h2><p>You don't need to know your dream career yet. Answer honestly to explore interests, preferred working style, possible strengths, and career directions worth investigating.</p></div>
-        <div class="quiz-start" id="quiz-start"><button class="button button-primary" id="start-quiz" type="button">Start the 10-question quiz <span class="button-arrow" aria-hidden="true">→</span></button><p>10 short statements · 5-point scale · go back any time to change an answer.</p></div>
+        <div class="quiz-start" id="quiz-intro" hidden>
+          <p class="quiz-intro-message">Attend the quiz to reveal your passion.</p>
+          <button class="button button-primary" id="quiz-intro-next" type="button">Next <span class="button-arrow" aria-hidden="true">→</span></button>
+        </div>
+        <div class="quiz-start" id="quiz-start"><button class="button button-primary" id="start-quiz" type="button">Start the 70-question quiz <span class="button-arrow" aria-hidden="true">→</span></button><p>70 short statements · 5-point agreement scale · go back any time to change an answer.</p></div>
         <form class="quiz-panel" id="career-quiz" hidden novalidate>
-          <div class="quiz-progress-row"><span class="quiz-progress-label" id="quiz-progress-label" aria-live="polite">Question 1 of 10</span><span class="quiz-progress-hint">Choose one rating to continue</span></div>
-          <progress class="quiz-progress" id="quiz-progress" max="10" value="1" aria-label="Quiz progress"></progress>
+          <div class="quiz-progress-row"><span class="quiz-progress-label" id="quiz-progress-label" aria-live="polite">Question 1 of 70</span><span class="quiz-progress-hint">Choose one rating to continue</span></div>
+          <progress class="quiz-progress" id="quiz-progress" max="70" value="1" aria-label="Quiz progress"></progress>
           <div id="quiz-question" class="quiz-question" role="group" aria-labelledby="quiz-question-title"></div>
           <p class="quiz-error" id="quiz-error" role="alert" hidden>Please select a rating to continue.</p>
           <div class="quiz-actions"><button class="button button-outline" id="quiz-back" type="button">← Back</button></div>

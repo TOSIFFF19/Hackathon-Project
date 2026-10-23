@@ -715,6 +715,15 @@ summary:focus-visible {
   font-size: 13px;
 }
 
+.quiz-intro-message {
+  margin: 0 0 22px;
+  color: var(--ink);
+  font-family: var(--heading-font);
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
 .quiz-progress-row {
   display: flex;
   justify-content: space-between;
@@ -818,12 +827,23 @@ summary:focus-visible {
 }
 
 .likert-dot {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   border: 2px solid #9aab9e;
   border-radius: 50%;
   background: #fff;
   transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.likert-point-2 .likert-dot,
+.likert-point-4 .likert-dot {
+  width: 23px;
+  height: 23px;
+}
+
+.likert-point-3 .likert-dot {
+  width: 18px;
+  height: 18px;
 }
 
 .likert-point:hover .likert-dot {
@@ -1562,8 +1582,19 @@ summary:focus-visible {
   }
 
   .likert-dot {
-    width: 19px;
-    height: 19px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .likert-point-2 .likert-dot,
+  .likert-point-4 .likert-dot {
+    width: 22px;
+    height: 22px;
+  }
+
+  .likert-point-3 .likert-dot {
+    width: 18px;
+    height: 18px;
   }
 
   .dashboard-grid {
@@ -1635,18 +1666,28 @@ summary:focus-visible {
   --ink: #e6eee8;
   --ink-soft: #c6d3c9;
   --muted: #a4b2a8;
-  --green: #91c5a3;
-  --green-dark: #a8d4b4;
+  --green: #8bc5a0;
+  --green-dark: #a6d6b5;
   --teal: #80c4b9;
-  --sage: #243329;
-  --paper: #101713;
-  --surface: #18221b;
-  --line: #2b3a30;
-  --line-strong: #405346;
+  --sage: #171717;
+  --paper: #000;
+  --surface: #111;
+  --line: #2a2a2a;
+  --line-strong: #414141;
 }
 
 [data-theme="dark"] .site-header {
-  background: rgb(20 30 24 / 96%);
+  background: rgb(10 10 10 / 96%);
+}
+
+[data-theme="dark"] .prism-hero,
+[data-theme="dark"] .prism-stage {
+  background: #000;
+  --prism-background: #000;
+}
+
+[data-theme="dark"] .site-footer {
+  background: #000;
 }
 
 [data-theme="dark"] .button-outline:hover,
@@ -1654,7 +1695,7 @@ summary:focus-visible {
 [data-theme="dark"] .quiz-section,
 [data-theme="dark"] .roadmap-panel,
 [data-theme="dark"] .reflection-panel {
-  background: #202d24;
+  background: #171717;
 }
 
 [data-theme="dark"] .step-card,
@@ -1685,7 +1726,7 @@ summary:focus-visible {
 [data-theme="dark"] .match-badge,
 [data-theme="dark"] .career-match,
 [data-theme="dark"] .final-cta {
-  background: #26372b;
+  background: #202020;
   color: var(--green-dark);
 }
 
@@ -1706,7 +1747,7 @@ summary:focus-visible {
 
 [data-theme="dark"] .quiz-progress,
 [data-theme="dark"] .quiz-progress::-webkit-progress-bar {
-  background: #2b3a30;
+  background: #292929;
 }
 
 [data-theme="dark"] .nav-links a {

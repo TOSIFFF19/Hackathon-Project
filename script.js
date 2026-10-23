@@ -529,6 +529,246 @@ const QUIZ_QUESTIONS = [
   {
     statement: "I prefer activities where I can create something useful and see the result of my work.",
     dimensions: ["creative", "practical", "design", "problem solving"]
+  },
+  {
+    statement: "I enjoy designing and constructing customized furniture or wooden structures.",
+    dimensions: ["creative", "design", "practical", "hands_on", "problem solving"]
+  },
+  {
+    statement: "I am interested in carrying out construction tasks involving materials such as bricks, tiles, and masonry.",
+    dimensions: ["practical", "hands_on", "problem solving", "responsibility"]
+  },
+  {
+    statement: "I would enjoy researching and developing new medicines or pharmaceutical treatments.",
+    dimensions: ["science", "research", "health", "analytical"]
+  },
+  {
+    statement: "I am interested in finding scientific solutions to water pollution and environmental challenges.",
+    dimensions: ["science", "research", "environment", "problem solving"]
+  },
+  {
+    statement: "I enjoy writing creative content, including books, stories, or dramatic scripts.",
+    dimensions: ["creative", "communication", "teaching", "social"]
+  },
+  {
+    statement: "I am interested in learning, practicing, and performing music using musical instruments.",
+    dimensions: ["creative", "practical", "communication"]
+  },
+  {
+    statement: "I enjoy helping individuals improve their physical fitness through structured exercise routines.",
+    dimensions: ["people", "health", "teaching", "practical"]
+  },
+  {
+    statement: "I am interested in supporting people as they work through personal challenges and emotional difficulties.",
+    dimensions: ["people", "health", "social", "communication"]
+  },
+  {
+    statement: "I enjoy analyzing financial markets and making informed decisions about stocks and bonds.",
+    dimensions: ["analytical", "business", "research", "detail"]
+  },
+  {
+    statement: "I would enjoy overseeing the daily operations of a retail store.",
+    dimensions: ["business", "organisation", "leadership", "people"]
+  },
+  {
+    statement: "I am interested in creating and managing spreadsheets to organize, analyze, and process information.",
+    dimensions: ["analytical", "technology", "organisation", "detail"]
+  },
+  {
+    statement: "I enjoy reviewing documents and records to identify grammatical errors, inconsistencies, or inaccuracies.",
+    dimensions: ["analytical", "communication", "research", "detail"]
+  },
+  {
+    statement: "I am interested in diagnosing and repairing faults in household electrical or mechanical appliances.",
+    dimensions: ["practical", "hands_on", "problem solving", "technology"]
+  },
+  {
+    statement: "I would enjoy working in aquaculture, including raising and caring for fish in a controlled environment.",
+    dimensions: ["science", "environment", "practical", "responsibility"]
+  },
+  {
+    statement: "I enjoy conducting chemical experiments to investigate substances and their properties.",
+    dimensions: ["science", "research", "analytical", "practical"]
+  },
+  {
+    statement: "I am curious about astronomy and enjoy studying planetary motion and other celestial phenomena.",
+    dimensions: ["science", "research", "analytical", "problem solving"]
+  },
+  {
+    statement: "I enjoy composing, arranging, or developing original musical pieces.",
+    dimensions: ["creative", "design", "communication"]
+  },
+  {
+    statement: "I am interested in expressing ideas through drawing, illustration, or visual art.",
+    dimensions: ["creative", "design", "practical"]
+  },
+  {
+    statement: "I enjoy helping individuals identify suitable career options based on their interests and goals.",
+    dimensions: ["people", "communication", "teaching", "social"]
+  },
+  {
+    statement: "I am interested in helping people recover physical abilities through rehabilitation and therapeutic exercises.",
+    dimensions: ["people", "health", "science", "practical"]
+  },
+  {
+    statement: "I would enjoy providing professional grooming and personal-care services, such as hairstyling or barbering.",
+    dimensions: ["people", "creative", "practical", "hands_on"]
+  },
+  {
+    statement: "I am interested in managing a department and coordinating its people, resources, and objectives.",
+    dimensions: ["organisation", "business", "leadership", "communication"]
+  },
+  {
+    statement: "I enjoy installing, configuring, and maintaining software across computer networks.",
+    dimensions: ["technology", "problem solving", "practical", "hands_on"]
+  },
+  {
+    statement: "I am comfortable performing numerical calculations accurately using calculators or digital tools.",
+    dimensions: ["analytical", "technology", "business", "detail"]
+  },
+  {
+    statement: "I enjoy assembling electronic components and understanding how they work together.",
+    dimensions: ["technology", "practical", "hands_on", "problem solving"]
+  },
+  {
+    statement: "I would be comfortable working in logistics and delivering goods safely and efficiently to different locations.",
+    dimensions: ["practical", "organisation", "responsibility", "problem solving"]
+  },
+  {
+    statement: "I am interested in examining biological samples using microscopes and laboratory equipment.",
+    dimensions: ["science", "research", "health", "analytical"]
+  },
+  {
+    statement: "I would enjoy investigating incidents to determine their causes, including fire-related incidents.",
+    dimensions: ["analytical", "research", "problem solving", "responsibility"]
+  },
+  {
+    statement: "I am interested in creating visual effects and digital imagery for films or other media.",
+    dimensions: ["creative", "design", "technology", "communication"]
+  },
+  {
+    statement: "I enjoy designing and painting stage sets for theatrical performances.",
+    dimensions: ["creative", "design", "practical", "hands_on"]
+  },
+  {
+    statement: "I find it meaningful to contribute my time and skills to charitable or nonprofit organizations.",
+    dimensions: ["social", "people", "communication", "responsibility"]
+  },
+  {
+    statement: "I enjoy teaching sports skills and helping children develop their athletic abilities.",
+    dimensions: ["teaching", "people", "health", "communication"]
+  },
+  {
+    statement: "I am interested in developing a business idea and turning it into a sustainable venture.",
+    dimensions: ["business", "creative", "leadership", "problem solving"]
+  },
+  {
+    statement: "I enjoy negotiating agreements and finding mutually beneficial solutions in business discussions.",
+    dimensions: ["business", "communication", "people", "leadership"]
+  },
+  {
+    statement: "I am comfortable maintaining accurate records of shipments, deliveries, and received goods.",
+    dimensions: ["organisation", "detail", "business", "responsibility"]
+  },
+  {
+    statement: "I enjoy calculating employee salaries, wages, and related payroll information accurately.",
+    dimensions: ["analytical", "business", "organisation", "detail"]
+  },
+  {
+    statement: "I am interested in inspecting products and testing components to ensure they meet quality standards.",
+    dimensions: ["analytical", "research", "practical", "detail"]
+  },
+  {
+    statement: "I enjoy practical technical work involving the installation, maintenance, or repair of locking systems.",
+    dimensions: ["practical", "hands_on", "problem solving", "responsibility"]
+  },
+  {
+    statement: "I would enjoy developing scientific or data-driven methods to improve weather forecasting.",
+    dimensions: ["science", "analytical", "research", "technology"]
+  },
+  {
+    statement: "I am interested in conducting experiments and investigations in a biological research laboratory.",
+    dimensions: ["science", "research", "health", "analytical"]
+  },
+  {
+    statement: "I enjoy developing scripts, storylines, and dialogue for films or television productions.",
+    dimensions: ["creative", "communication", "design", "social"]
+  },
+  {
+    statement: "I am interested in performing dance styles such as jazz or tap as a creative form of expression.",
+    dimensions: ["creative", "practical", "communication"]
+  },
+  {
+    statement: "I would enjoy teaching sign language and helping improve communication accessibility.",
+    dimensions: ["teaching", "communication", "people", "social"]
+  },
+  {
+    statement: "I am interested in supporting structured group sessions that help people address emotional or behavioural challenges.",
+    dimensions: ["people", "health", "teaching", "communication"]
+  },
+  {
+    statement: "I would enjoy analyzing legal issues and representing clients in legal proceedings.",
+    dimensions: ["analytical", "communication", "people", "research"]
+  },
+  {
+    statement: "I am interested in promoting fashion products and developing marketing strategies for clothing brands.",
+    dimensions: ["business", "creative", "research", "communication"]
+  },
+  {
+    statement: "I enjoy using digital tools to track, organize, and manage inventory efficiently.",
+    dimensions: ["technology", "organisation", "business", "detail"]
+  },
+  {
+    statement: "I am comfortable maintaining accurate records of rental payments and related financial transactions.",
+    dimensions: ["analytical", "business", "organisation", "detail"]
+  },
+  {
+    statement: "I enjoy operating production equipment and understanding how manufacturing processes work.",
+    dimensions: ["practical", "hands_on", "technology", "responsibility"]
+  },
+  {
+    statement: "I would be interested in contributing to forest-fire prevention and emergency response activities.",
+    dimensions: ["environment", "practical", "responsibility", "problem solving"]
+  },
+  {
+    statement: "I enjoy applying scientific knowledge to develop alternative ingredients or improve existing food products.",
+    dimensions: ["science", "research", "creative", "analytical"]
+  },
+  {
+    statement: "I am interested in performing laboratory tests that help identify diseases and support medical diagnosis.",
+    dimensions: ["science", "health", "research", "analytical"]
+  },
+  {
+    statement: "I enjoy singing and collaborating with other musicians in a band or musical group.",
+    dimensions: ["creative", "communication", "people"]
+  },
+  {
+    statement: "I am interested in editing video footage to create polished and engaging visual content.",
+    dimensions: ["creative", "design", "technology", "communication"]
+  },
+  {
+    statement: "I enjoy caring for young children and supporting their early learning and development.",
+    dimensions: ["people", "teaching", "health", "social"]
+  },
+  {
+    statement: "I would enjoy teaching academic subjects and helping high-school students understand complex concepts.",
+    dimensions: ["teaching", "communication", "people", "science"]
+  },
+  {
+    statement: "I enjoy interacting with customers and helping them choose suitable products in a retail environment.",
+    dimensions: ["people", "communication", "business"]
+  },
+  {
+    statement: "I am interested in managing a clothing store, including its staff, merchandise, and daily operations.",
+    dimensions: ["business", "organisation", "leadership", "people"]
+  },
+  {
+    statement: "I enjoy maintaining organized inventory records and ensuring that stock information remains accurate.",
+    dimensions: ["organisation", "detail", "business", "responsibility"]
+  },
+  {
+    statement: "I am comfortable performing structured administrative tasks, such as sorting, organizing, and distributing organizational correspondence.",
+    dimensions: ["organisation", "detail", "communication", "responsibility"]
   }
 ];
 
@@ -538,7 +778,8 @@ const DIMENSION_LABELS = {
   design: "design and visual communication", communication: "communication", organisation: "planning and organisation",
   business: "business and enterprise", leadership: "leadership and coordination", research: "research and investigation",
   science: "science and discovery", environment: "environment and sustainability", practical: "practical problem-solving",
-  "hands_on": "hands-on work", "problem solving": "problem-solving", social: "community and social impact"
+  "hands_on": "hands-on work", "problem solving": "problem-solving", social: "community and social impact",
+  responsibility: "responsibility and dependable work", detail: "accuracy and attention to detail"
 };
 
 const FACTORS = [
@@ -596,6 +837,7 @@ const careerResults = document.querySelector("#career-results");
 const careerCount = document.querySelector("#career-count");
 const searchStatus = document.querySelector("#search-status");
 const quizForm = document.querySelector("#career-quiz");
+const quizIntro = document.querySelector("#quiz-intro");
 const quizStart = document.querySelector("#quiz-start");
 const quizQuestion = document.querySelector("#quiz-question");
 const quizProgressLabel = document.querySelector("#quiz-progress-label");
@@ -1050,7 +1292,7 @@ function renderDashboard(response) {
       ? `Your ratings suggest interest in activities involving ${topLabels.join(", ")}. This is a snapshot of stated preferences, not a permanent personality type.`
       : "Your answers did not show a preference above neutral for one particular work-style dimension. This is not a weakness or a fixed classification."}</p>
     <details class="answer-review">
-      <summary>Review your 10 answers</summary>
+      <summary>Review your ${QUIZ_QUESTIONS.length} answers</summary>
       <ol>${quizAnswers.map((rating, index) => `<li><strong>${escapeHTML(QUIZ_QUESTIONS[index].statement)}</strong> — ${rating}/5 (${["", "Strongly Disagree", "Disagree", "Neutral / Not Sure", "Agree", "Strongly Agree"][rating]}).</li>`).join("")}</ol>
     </details>
   `;
@@ -1112,6 +1354,7 @@ function renderDashboard(response) {
 function renderQuizQuestion() {
   const question = QUIZ_QUESTIONS[currentQuestion];
   quizProgressLabel.textContent = `Question ${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}`;
+  quizProgress.max = QUIZ_QUESTIONS.length;
   quizProgress.value = currentQuestion + 1;
   quizBack.disabled = currentQuestion === 0;
   quizError.hidden = true;
@@ -1233,12 +1476,34 @@ function updateCareerSearch() {
 function setQuizVisible(visible) {
   const profileSection = document.querySelector("#profile-section");
   if (profileSection) profileSection.hidden = visible;
+  if (quizIntro) quizIntro.hidden = visible;
   if (quizStart) quizStart.hidden = visible;
   if (quizForm) quizForm.hidden = !visible;
   if (visible && quizForm) {
     renderQuizQuestion();
     quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+}
+
+function showQuizIntro(resetAnswers = false) {
+  const profileSection = document.querySelector("#profile-section");
+  if (profileForm) profile = readProfile();
+  if (resetAnswers || assessmentComplete) {
+    quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
+    currentQuestion = 0;
+  }
+  assessmentComplete = false;
+  isNavigating = false;
+  if (navigationTimer !== null) {
+    window.clearTimeout(navigationTimer);
+    navigationTimer = null;
+  }
+  persistSessionState();
+  if (profileSection) profileSection.hidden = true;
+  if (quizIntro) quizIntro.hidden = false;
+  if (quizStart) quizStart.hidden = true;
+  if (quizForm) quizForm.hidden = true;
+  if (quizIntro) quizIntro.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function beginAssessment(resetAnswers) {
@@ -1281,7 +1546,7 @@ function initializeQuiz() {
     });
     profileForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      beginAssessment(true);
+      showQuizIntro(true);
     });
     profileForm.addEventListener("reset", () => {
       profile = {};
@@ -1301,21 +1566,19 @@ function initializeQuiz() {
     assessmentComplete = false;
     persistSessionState();
     setQuizVisible(true);
-  } else if (params.has("start")) {
-    if (assessmentComplete) {
-      quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
-      currentQuestion = 0;
-      assessmentComplete = false;
-      persistSessionState();
-    }
-    setQuizVisible(true);
+  } else if (params.has("start") || params.has("restart")) {
+    showQuizIntro();
   } else if (!assessmentComplete && quizAnswers.some(Number.isInteger)) {
     setQuizVisible(true);
   }
 
   const startButton = document.querySelector("#start-quiz");
   if (startButton) {
-    startButton.addEventListener("click", () => beginAssessment(false));
+    startButton.addEventListener("click", showQuizIntro);
+  }
+  const introNextButton = document.querySelector("#quiz-intro-next");
+  if (introNextButton) {
+    introNextButton.addEventListener("click", () => beginAssessment(false));
   }
   if (quizBack) {
     quizBack.addEventListener("click", () => {
@@ -1505,7 +1768,7 @@ function initializeNavigation() {
     const nextTheme = theme === "dark" ? "light" : "dark";
     themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
     themeToggle.title = `Switch to ${nextTheme} theme`;
-    if (themeColorMeta) themeColorMeta.content = theme === "dark" ? "#101713" : "#f8faf7";
+    if (themeColorMeta) themeColorMeta.content = theme === "dark" ? "#000000" : "#f8faf7";
   };
   updateThemeToggle(document.documentElement.dataset.theme);
   if (themeToggle) {
