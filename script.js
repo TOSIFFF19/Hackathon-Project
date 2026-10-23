@@ -587,6 +587,7 @@ CAREER_PROFILES.forEach((career) => {
   career.pathways = PATHWAYS_BY_CATEGORY[career.category] || PATHWAYS_BY_CATEGORY.technology;
 });
 
+const SESSION_KEY = "spectra-career-session";
 const profileForm = document.querySelector("#profile-form");
 const recommendationSummary = document.querySelector("#recommendation-summary");
 const recommendationResults = document.querySelector("#recommendation-results");
@@ -603,12 +604,42 @@ const quizError = document.querySelector("#quiz-error");
 const quizBack = document.querySelector("#quiz-back");
 const resultsDashboard = document.querySelector("#results-dashboard");
 
-let profile = {};
-let quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
-let currentQuestion = 0;
+function readSessionState() {
+  try {
+    const saved = sessionStorage.getItem(SESSION_KEY);
+    const parsed = saved ? JSON.parse(saved) : {};
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch (error) {
+    console.warn("Could not read the saved career assessment.", error);
+    return {};
+  }
+}
+
+const savedSession = readSessionState();
+let profile = savedSession.profile && typeof savedSession.profile === "object" ? savedSession.profile : {};
+let quizAnswers = Array.isArray(savedSession.quizAnswers) && savedSession.quizAnswers.length === QUIZ_QUESTIONS.length
+  ? savedSession.quizAnswers.map((rating) => Number.isInteger(rating) && rating >= 1 && rating <= 5 ? rating : null)
+  : Array(QUIZ_QUESTIONS.length).fill(null);
+let currentQuestion = Number.isInteger(savedSession.currentQuestion)
+  ? Math.min(Math.max(savedSession.currentQuestion, 0), QUIZ_QUESTIONS.length - 1)
+  : 0;
+let assessmentComplete = savedSession.assessmentComplete === true;
 let isNavigating = false;
 let navigationTimer = null;
 let selectedCareerCategories = null;
+
+function persistSessionState() {
+  try {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+      profile,
+      quizAnswers,
+      currentQuestion,
+      assessmentComplete
+    }));
+  } catch (error) {
+    console.warn("Could not save the career assessment in this browser session.", error);
+  }
+}
 
 function normalizeTerm(value) {
   const normalized = String(value)
@@ -639,6 +670,7 @@ function asList(value) {
 }
 
 function readProfile() {
+  if (!profileForm) return {};
   const profile = {};
   const listFields = ["interests", "skills", "favouriteSubjects", "difficultSubjects", "goals"];
 
@@ -860,8 +892,6 @@ function renderResources(resources) {
 
 function renderCareerCard(career, result = null, index = 0, extraText = "") {
   const skills = career.skills || {};
-  const roadmap = asList(career.roadmap);
-  const projects = asList(career.beginnerProjects);
   const educationRequirements = career.educationRequirements || {};
   const matchBadge = result
     ? result.score === null
@@ -894,13 +924,6 @@ function renderCareerCard(career, result = null, index = 0, extraText = "") {
       </div>
     `
     : "";
-  const roadmapItems = roadmap.length
-    ? roadmap.map((step) => `<li>${escapeHTML(step)}</li>`).join("")
-    : "<li>Learning steps are not yet available in this career profile.</li>";
-  const projectItems = projects.map((project) => (
-    `<li><strong>${escapeHTML(project.title)}:</strong> ${escapeHTML(project.description)}</li>`
-  )).join("");
-
   return `
     <article class="career-card career-${escapeHTML(career.color)} profile-card">
       <div class="career-card-top">
@@ -914,7 +937,7 @@ function renderCareerCard(career, result = null, index = 0, extraText = "") {
       <p>${escapeHTML(career.description || "A career description is not yet available in this profile.")}</p>
       ${extraText ? `<p class="career-extra-reason">${escapeHTML(extraText)}</p>` : ""}
       <details class="career-details">
-        <summary>Explore Career: skills, pathways &amp; resources</summary>
+        <summary>Explore career profile</summary>
         ${matchDetails}
         <h4>Required skills</h4>
         ${renderList(skills.required)}
@@ -927,14 +950,9 @@ function renderCareerCard(career, result = null, index = 0, extraText = "") {
         ${result ? `<h4>How your background may relate</h4><p>${escapeHTML(getEducationFitNote(profile, career))}</p>` : ""}
         <h4>Possible study pathways</h4>
         ${renderList(career.pathways)}
-        <h4>Learning roadmap</h4>
-        <ol>${roadmapItems}</ol>
-        <h4>Beginner projects</h4>
-        ${projectItems ? `<ul>${projectItems}</ul>` : "<p>Not yet added to this career profile.</p>"}
-        <h4>Free learning resources</h4>
-        ${renderResources(career.freeResources)}
         <p class="profile-data-note">Career information is a starting point. Check current requirements with schools and employers.</p>
       </details>
+      <a class="button button-outline career-roadmap-link" href="roadmap.html?career=${encodeURIComponent(career.id)}">Explore learning roadmap <span aria-hidden="true">→</span></a>
     </article>
   `;
 }
@@ -1070,25 +1088,6 @@ function renderDashboard(response) {
     return renderCareerCard(career, result, index);
   }).join("") : '<p class="empty-state">No career profile passed the exploratory match threshold for these answers. This does not mean you lack potential. Browse all career paths below or retake the quiz with answers that best reflect your preferences.</p>';
 
-  const firstCareer = response.results[0] && response.results[0].careerProfile;
-  const roadmap = [];
-  if (profile.educationStage === "school_8_below" || profile.educationStage === "class_9_10") {
-    roadmap.push("At your stage, explore school subjects and short, safe activities; there is no need to rush a degree or entrance-exam decision.");
-  }
-  if (profile.studyPreference === "affordable") {
-    roadmap.push("Start with free learning resources in the career profiles and compare total costs before choosing a course.");
-  } else if (profile.studyPreference === "short") {
-    roadmap.push("You prefer shorter skill-based learning. Check whether a recognised short route exists for the specific role and what prerequisites it requires.");
-  }
-  roadmap.push(...(firstCareer
-    ? [
-      ...asList(firstCareer.roadmap).slice(0, 3),
-      `Try this beginner activity: ${firstCareer.beginnerProjects[0].title} — ${firstCareer.beginnerProjects[0].description}`,
-      "After trying it, note what you enjoyed and what you would like to learn next."
-    ]
-    : ["Explore a subject you enjoy, try a beginner-friendly activity, and reflect on what you learned."]));
-  document.querySelector("#roadmap-results").innerHTML = renderListItems(roadmap);
-
   const excludedIds = new Set(response.results.map((result) => result.careerId));
   const alternatives = CAREER_PROFILES.filter((career) => !excludedIds.has(career.id))
     .sort((a, b) => {
@@ -1129,6 +1128,9 @@ function renderQuizQuestion() {
       `).join("")}
       <span class="likert-endpoint likert-end">Strongly Agree</span>
     </div>
+    ${Number.isInteger(quizAnswers[currentQuestion])
+      ? '<button class="button button-primary quiz-continue" id="quiz-continue" type="button">Continue with this answer <span aria-hidden="true">→</span></button>'
+      : ""}
   `;
   quizQuestion.querySelectorAll('input[name="quiz-answer"]').forEach((input) => {
     input.addEventListener("change", () => {
@@ -1136,6 +1138,7 @@ function renderQuizQuestion() {
       const rating = Number(input.value);
       if (!Number.isInteger(rating) || rating < 1 || rating > 5) return;
       quizAnswers[currentQuestion] = rating;
+      persistSessionState();
       quizError.hidden = true;
       quizQuestion.querySelectorAll('input[name="quiz-answer"]').forEach((radio) => {
         radio.disabled = true;
@@ -1143,25 +1146,21 @@ function renderQuizQuestion() {
       advanceQuiz();
     });
   });
+  const continueButton = quizQuestion.querySelector("#quiz-continue");
+  if (continueButton) continueButton.addEventListener("click", advanceQuiz);
 }
 
 function showQuizResults() {
   if (quizAnswers.length !== QUIZ_QUESTIONS.length
     || quizAnswers.some((rating) => !Number.isInteger(rating) || rating < 1 || rating > 5)) {
-    quizError.hidden = false;
+    if (quizError) quizError.hidden = false;
     return;
   }
   profile.quizDimensionWeights = getQuizDimensionScores(quizAnswers);
   profile.skillsToDevelop = getChosenDevelopmentFocus();
-  const response = buildRecommendationResponse(profile);
-  if (response.results.length === 0) {
-    recommendationSummary.textContent = "There is not enough overlap in the available career profile data to show a useful match yet. Browse the full career explorer below.";
-    return;
-  }
-  renderDashboard(response);
-  quizForm.hidden = true;
-  resultsDashboard.hidden = false;
-  resultsDashboard.scrollIntoView({ behavior: "smooth", block: "start" });
+  assessmentComplete = true;
+  persistSessionState();
+  window.location.href = "results.html";
 }
 
 function advanceQuiz() {
@@ -1178,6 +1177,7 @@ function advanceQuiz() {
       return;
     }
     currentQuestion += 1;
+    persistSessionState();
     renderQuizQuestion();
     isNavigating = false;
     quizBack.disabled = currentQuestion === 0;
@@ -1210,6 +1210,7 @@ function getSearchRank(career, query) {
 }
 
 function updateCareerSearch() {
+  if (!careerSearch || !careerResults || !careerCount || !searchStatus) return;
   const query = careerSearch.value.trim().toLocaleLowerCase();
   const matchingCareers = selectedCareerCategories
     ? CAREER_PROFILES.filter((career) => selectedCareerCategories.has(career.category))
@@ -1229,165 +1230,296 @@ function updateCareerSearch() {
     : selectedCareerCategories ? `Showing ${results.length} career profiles in this category.` : "Showing all career profiles.";
 }
 
-function startQuiz() {
-  profile = readProfile();
-  quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
-  currentQuestion = 0;
-  isNavigating = false;
-  if (navigationTimer !== null) {
-    window.clearTimeout(navigationTimer);
-    navigationTimer = null;
+function setQuizVisible(visible) {
+  const profileSection = document.querySelector("#profile-section");
+  if (profileSection) profileSection.hidden = visible;
+  if (quizStart) quizStart.hidden = visible;
+  if (quizForm) quizForm.hidden = !visible;
+  if (visible && quizForm) {
+    renderQuizQuestion();
+    quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-  quizStart.hidden = true;
-  resultsDashboard.hidden = true;
-  quizForm.hidden = false;
-  renderQuizQuestion();
-  quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-profileForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  startQuiz();
-});
-
-document.querySelector("#start-quiz").addEventListener("click", startQuiz);
-
-quizBack.addEventListener("click", () => {
-  if (currentQuestion === 0 || isNavigating) return;
-  currentQuestion -= 1;
-  renderQuizQuestion();
-  (quizQuestion.querySelector('input[name="quiz-answer"]:checked')
-    || quizQuestion.querySelector('input[name="quiz-answer"]')).focus();
-});
-
-quizForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  if (currentQuestion === QUIZ_QUESTIONS.length - 1 && quizAnswers.every((rating) => Number.isInteger(rating) && rating >= 1 && rating <= 5)) {
-    showQuizResults();
-  } else if (quizAnswers.some((rating) => !Number.isInteger(rating) || rating < 1 || rating > 5)) {
-    quizError.hidden = false;
+function beginAssessment(resetAnswers) {
+  if (profileForm) profile = readProfile();
+  if (resetAnswers || assessmentComplete) {
+    quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
+    currentQuestion = 0;
   }
-});
-
-document.querySelector("#review-quiz").addEventListener("click", () => {
+  assessmentComplete = false;
+  isNavigating = false;
   if (navigationTimer !== null) {
     window.clearTimeout(navigationTimer);
     navigationTimer = null;
   }
-  isNavigating = false;
-  currentQuestion = 0;
-  resultsDashboard.hidden = true;
-  quizStart.hidden = true;
-  quizForm.hidden = false;
-  renderQuizQuestion();
-  quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-document.querySelector("#restart-quiz").addEventListener("click", () => {
-  if (navigationTimer !== null) {
-    window.clearTimeout(navigationTimer);
-    navigationTimer = null;
+  persistSessionState();
+  if (!quizForm) {
+    window.location.href = "quiz.html";
+    return;
   }
-  isNavigating = false;
-  quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
-  currentQuestion = 0;
-  profile = readProfile();
-  quizForm.reset();
-  quizForm.hidden = true;
-  resultsDashboard.hidden = true;
-  quizStart.hidden = false;
-  quizQuestion.innerHTML = "";
-  quizStart.scrollIntoView({ behavior: "smooth", block: "start" });
-});
+  setQuizVisible(true);
+}
 
-profileForm.addEventListener("reset", () => {
-  profile = {};
-});
-
-careerSearch.addEventListener("input", updateCareerSearch);
-
-document.querySelectorAll(".category-filter").forEach((button) => {
-  button.addEventListener("click", () => {
-    const categories = button.dataset.categories;
-    selectedCareerCategories = categories === "all" ? null : new Set(categories.split(","));
-    document.querySelectorAll(".category-filter").forEach((filter) => {
-      const isActive = filter === button;
-      filter.classList.toggle("is-active", isActive);
-      filter.setAttribute("aria-pressed", String(isActive));
+function initializeQuiz() {
+  if (!quizForm || !quizStart) return;
+  if (profileForm) {
+    Array.from(profileForm.elements).forEach((field) => {
+      if (!field.name || !(field.name in profile)) return;
+      field.value = Array.isArray(profile[field.name]) ? profile[field.name].join(", ") : profile[field.name];
     });
-    updateCareerSearch();
-  });
-});
-
-const navToggle = document.querySelector("#nav-toggle");
-const navLinks = document.querySelector("#nav-links");
-const navHoverBg = navLinks.querySelector(".nav-hover-bg");
-const navItems = navLinks.querySelectorAll(".nav-link");
-const navCta = document.querySelector(".nav-cta");
-const themeToggle = document.querySelector("#theme-toggle");
-const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-
-function showNavHover(link) {
-  if (window.innerWidth <= 700) return;
-  navHoverBg.style.width = `${link.offsetWidth}px`;
-  navHoverBg.style.height = `${link.offsetHeight}px`;
-  navHoverBg.style.transform = `translate3d(${link.offsetLeft}px, ${link.offsetTop}px, 0)`;
-  navLinks.classList.add("has-active-link");
-}
-
-function hideNavHover() {
-  navLinks.classList.remove("has-active-link");
-}
-
-navItems.forEach((link) => {
-  link.addEventListener("pointerenter", () => showNavHover(link));
-  link.addEventListener("focus", () => showNavHover(link));
-});
-navLinks.addEventListener("pointerleave", hideNavHover);
-navLinks.addEventListener("focusout", (event) => {
-  if (!navLinks.contains(event.relatedTarget)) hideNavHover();
-});
-
-function updateThemeToggle(theme) {
-  const nextTheme = theme === "dark" ? "light" : "dark";
-  themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
-  themeToggle.title = `Switch to ${nextTheme} theme`;
-  themeColorMeta.content = theme === "dark" ? "#101713" : "#f8faf7";
-}
-
-updateThemeToggle(document.documentElement.dataset.theme);
-
-themeToggle.addEventListener("click", () => {
-  const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = theme;
-  updateThemeToggle(theme);
-  try {
-    localStorage.setItem("spectra-theme", theme);
-  } catch (error) {
-    console.warn("Could not save the theme preference.", error);
+    profileForm.addEventListener("input", () => {
+      profile = readProfile();
+      persistSessionState();
+    });
+    profileForm.addEventListener("change", () => {
+      profile = readProfile();
+      persistSessionState();
+    });
+    profileForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      beginAssessment(true);
+    });
+    profileForm.addEventListener("reset", () => {
+      profile = {};
+      persistSessionState();
+    });
   }
-  if (window.innerWidth <= 700) closeNavigation();
-});
 
-function closeNavigation() {
-  navToggle.setAttribute("aria-expanded", "false");
-  navToggle.setAttribute("aria-label", "Open navigation");
-  navLinks.classList.remove("is-open");
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("restart")) {
+    quizAnswers = Array(QUIZ_QUESTIONS.length).fill(null);
+    currentQuestion = 0;
+    assessmentComplete = false;
+    persistSessionState();
+  }
+  if (params.has("review")) {
+    currentQuestion = 0;
+    assessmentComplete = false;
+    persistSessionState();
+    setQuizVisible(true);
+  } else if (!assessmentComplete && quizAnswers.some(Number.isInteger)) {
+    setQuizVisible(true);
+  }
+
+  const startButton = document.querySelector("#start-quiz");
+  if (startButton) {
+    startButton.addEventListener("click", () => beginAssessment(false));
+  }
+  if (quizBack) {
+    quizBack.addEventListener("click", () => {
+      if (currentQuestion === 0 || isNavigating) return;
+      currentQuestion -= 1;
+      persistSessionState();
+      renderQuizQuestion();
+      (quizQuestion.querySelector('input[name="quiz-answer"]:checked')
+        || quizQuestion.querySelector('input[name="quiz-answer"]')).focus();
+    });
+  }
+  quizForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (quizAnswers.some((rating) => !Number.isInteger(rating) || rating < 1 || rating > 5) && quizError) {
+      quizError.hidden = false;
+    }
+  });
 }
 
-navToggle.addEventListener("click", () => {
-  const isOpen = navToggle.getAttribute("aria-expanded") !== "true";
-  navToggle.setAttribute("aria-expanded", String(isOpen));
-  navToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-  navLinks.classList.toggle("is-open", isOpen);
-});
-navLinks.addEventListener("click", (event) => {
-  if (event.target.closest("a")) closeNavigation();
-});
-navCta.addEventListener("click", closeNavigation);
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 820) closeNavigation();
-});
+function initializeCareers() {
+  if (!careerResults) return;
+  if (careerSearch) careerSearch.addEventListener("input", updateCareerSearch);
+  document.querySelectorAll(".category-filter").forEach((button) => {
+    button.addEventListener("click", () => {
+      const categories = button.dataset.categories;
+      selectedCareerCategories = categories === "all" ? null : new Set(categories.split(","));
+      document.querySelectorAll(".category-filter").forEach((filter) => {
+        const isActive = filter === button;
+        filter.classList.toggle("is-active", isActive);
+        filter.setAttribute("aria-pressed", String(isActive));
+      });
+      updateCareerSearch();
+    });
+  });
+  updateCareerSearch();
+}
 
-document.querySelector("#current-year").textContent = new Date().getFullYear();
-updateCareerSearch();
+function initializeResults() {
+  if (!resultsDashboard) return;
+  const emptyState = document.querySelector("#results-empty");
+  if (!assessmentComplete || quizAnswers.some((rating) => !Number.isInteger(rating) || rating < 1 || rating > 5)) {
+    resultsDashboard.hidden = true;
+    if (emptyState) emptyState.hidden = false;
+    return;
+  }
+
+  profile.quizDimensionWeights = getQuizDimensionScores(quizAnswers);
+  profile.skillsToDevelop = getChosenDevelopmentFocus();
+  persistSessionState();
+  renderDashboard(buildRecommendationResponse(profile));
+  resultsDashboard.hidden = false;
+  if (emptyState) emptyState.hidden = true;
+}
+
+function buildPersonalRoadmap(career) {
+  const steps = [];
+  if (profile.educationStage === "school_8_below" || profile.educationStage === "class_9_10") {
+    steps.push("At your stage, explore school subjects and short, safe activities; there is no need to rush a degree or entrance-exam decision.");
+  }
+  if (profile.studyPreference === "affordable") {
+    steps.push("Start with free learning resources in the career profile and compare total costs before choosing a course.");
+  } else if (profile.studyPreference === "short") {
+    steps.push("You prefer shorter skill-based learning. Check whether a recognised short route exists for this role and what prerequisites it requires.");
+  }
+  const firstProject = asList(career.beginnerProjects)[0];
+  steps.push(...(firstProject
+    ? [
+      ...asList(career.roadmap).slice(0, 3),
+      `Try this beginner activity: ${firstProject.title} — ${firstProject.description}`,
+      "After trying it, note what you enjoyed and what you would like to learn next."
+    ]
+    : asList(career.roadmap)));
+  if (!steps.length) {
+    steps.push("Explore a subject you enjoy, try a beginner-friendly activity, and reflect on what you learned.");
+  }
+  return steps;
+}
+
+function initializeRoadmap() {
+  const roadmapContent = document.querySelector("#roadmap-content");
+  if (!roadmapContent) return;
+  const params = new URLSearchParams(window.location.search);
+  const requestedId = params.get("career");
+  const validResults = assessmentComplete && quizAnswers.every((rating) => Number.isInteger(rating) && rating >= 1 && rating <= 5)
+    ? buildRecommendationResponse({ ...profile, quizDimensionWeights: getQuizDimensionScores(quizAnswers) }).results
+    : [];
+  const career = CAREER_PROFILES.find((item) => item.id === requestedId)
+    || (validResults[0] && validResults[0].careerProfile);
+  if (!career) {
+    roadmapContent.innerHTML = `
+      <div class="empty-state">
+        <p>Choose a career from the explorer or complete the quiz to build a personalized learning roadmap.</p>
+        <a class="button button-primary" href="careers.html">Explore careers <span aria-hidden="true">→</span></a>
+      </div>
+    `;
+    return;
+  }
+
+  const match = validResults.find((result) => result.careerId === career.id);
+  const heading = document.querySelector("#roadmap-title");
+  const description = document.querySelector("#roadmap-description");
+  if (heading) heading.textContent = `${career.title} learning roadmap`;
+  if (description) description.textContent = career.description;
+  roadmapContent.innerHTML = `
+    ${match ? `<p class="match-badge">Interest alignment ${match.score}/100</p>` : ""}
+    <section class="dashboard-panel roadmap-panel">
+      <h2>Your next steps</h2>
+      ${renderListItems(buildPersonalRoadmap(career))}
+    </section>
+    <section class="dashboard-panel">
+      <h2>Learning roadmap</h2>
+      ${renderList(career.roadmap)}
+    </section>
+    <section class="dashboard-panel">
+      <h2>Beginner projects</h2>
+      ${career.beginnerProjects && career.beginnerProjects.length
+        ? `<ul>${career.beginnerProjects.map((project) => `<li><strong>${escapeHTML(project.title)}:</strong> ${escapeHTML(project.description)}</li>`).join("")}</ul>`
+        : "<p>Not yet added to this career profile.</p>"}
+    </section>
+    <section class="dashboard-panel">
+      <h2>Free learning resources</h2>
+      ${renderResources(career.freeResources)}
+    </section>
+    <section class="dashboard-panel">
+      <h2>Skills and study pathways</h2>
+      <h3>Required skills</h3>${renderList(career.skills && career.skills.required)}
+      <h3>Helpful skills</h3>${renderList(career.skills && career.skills.helpful)}
+      <h3>Relevant subjects</h3>${renderList(career.subjects)}
+      <h3>Possible study pathways</h3>${renderList(career.pathways)}
+      <p>${escapeHTML(career.educationRequirements && career.educationRequirements.summary || "Education information is not yet available in this career profile.")}</p>
+    </section>
+    <p class="matching-note">Career information is a starting point. Check current requirements with schools and employers.</p>
+  `;
+}
+
+function initializeNavigation() {
+  const navToggle = document.querySelector("#nav-toggle");
+  const navLinks = document.querySelector("#nav-links");
+  const navHoverBg = navLinks && navLinks.querySelector(".nav-hover-bg");
+  const navCta = document.querySelector(".nav-cta");
+  const themeToggle = document.querySelector("#theme-toggle");
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+  const closeNavigation = () => {
+    if (!navToggle || !navLinks) return;
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Open navigation");
+    navLinks.classList.remove("is-open");
+  };
+
+  if (navLinks) {
+    navLinks.querySelectorAll(".nav-link").forEach((link) => {
+      if (link.getAttribute("href") === window.location.pathname.split("/").pop()) {
+        link.setAttribute("aria-current", "page");
+      }
+      const showNavHover = () => {
+        if (!navHoverBg || window.innerWidth <= 700) return;
+        navHoverBg.style.width = `${link.offsetWidth}px`;
+        navHoverBg.style.height = `${link.offsetHeight}px`;
+        navHoverBg.style.transform = `translate3d(${link.offsetLeft}px, ${link.offsetTop}px, 0)`;
+        navLinks.classList.add("has-active-link");
+      };
+      link.addEventListener("pointerenter", showNavHover);
+      link.addEventListener("focus", showNavHover);
+    });
+    navLinks.addEventListener("pointerleave", () => navLinks.classList.remove("has-active-link"));
+    navLinks.addEventListener("focusout", (event) => {
+      if (!navLinks.contains(event.relatedTarget)) navLinks.classList.remove("has-active-link");
+    });
+    navLinks.addEventListener("click", (event) => {
+      if (event.target.closest("a")) closeNavigation();
+    });
+  }
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = navToggle.getAttribute("aria-expanded") !== "true";
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      navLinks.classList.toggle("is-open", isOpen);
+    });
+  }
+  if (navCta) navCta.addEventListener("click", closeNavigation);
+
+  const updateThemeToggle = (theme) => {
+    if (!themeToggle) return;
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
+    themeToggle.title = `Switch to ${nextTheme} theme`;
+    if (themeColorMeta) themeColorMeta.content = theme === "dark" ? "#101713" : "#f8faf7";
+  };
+  updateThemeToggle(document.documentElement.dataset.theme);
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = theme;
+      updateThemeToggle(theme);
+      try {
+        localStorage.setItem("spectra-theme", theme);
+      } catch (error) {
+        console.warn("Could not save the theme preference.", error);
+      }
+      if (window.innerWidth <= 700) closeNavigation();
+    });
+  }
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 820) closeNavigation();
+  });
+  const currentYear = document.querySelector("#current-year");
+  if (currentYear) currentYear.textContent = new Date().getFullYear();
+}
+
+initializeNavigation();
+initializeCareers();
+initializeQuiz();
+initializeResults();
+initializeRoadmap();

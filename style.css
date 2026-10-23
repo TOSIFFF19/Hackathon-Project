@@ -186,7 +186,8 @@ summary:focus-visible {
 }
 
 .nav-links .nav-link:hover,
-.nav-links .nav-link:focus-visible {
+.nav-links .nav-link:focus-visible,
+.nav-links .nav-link[aria-current="page"] {
   color: var(--green);
 }
 
@@ -495,6 +496,7 @@ summary:focus-visible {
 }
 
 .section-heading h2,
+.section-heading h1,
 .final-cta h2 {
   margin: 14px 0 14px;
   color: var(--ink);
@@ -862,6 +864,11 @@ summary:focus-visible {
   margin-top: 30px;
 }
 
+.quiz-continue {
+  display: flex;
+  margin: 18px auto 0;
+}
+
 .quiz-actions .button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -1144,6 +1151,12 @@ summary:focus-visible {
   text-underline-offset: 2px;
 }
 
+.career-roadmap-link {
+  min-height: 42px;
+  margin-top: 14px;
+  font-size: 12px;
+}
+
 .profile-data-note {
   padding-top: 10px;
   border-top: 1px solid var(--line);
@@ -1213,6 +1226,36 @@ summary:focus-visible {
 .footer-top-link {
   color: #d7e4d8;
   font-size: 13px;
+}
+
+.roadmap-page {
+  background: var(--paper);
+}
+
+.roadmap-content {
+  align-items: stretch;
+}
+
+.roadmap-content > .dashboard-panel {
+  align-self: start;
+}
+
+.roadmap-content h2 {
+  margin-top: 0;
+  font-family: var(--heading-font);
+  font-size: 18px;
+  letter-spacing: -0.025em;
+}
+
+.roadmap-content h3 {
+  margin: 18px 0 6px;
+  font-family: var(--heading-font);
+  font-size: 14px;
+}
+
+.roadmap-back-links {
+  justify-content: flex-start;
+  margin-top: 30px;
 }
 
 .footer-bottom {
@@ -1366,6 +1409,10 @@ summary:focus-visible {
     min-height: 38px;
     padding-inline: 11px;
     font-size: 11px;
+  }
+
+  .roadmap-content {
+    grid-template-columns: 1fr;
   }
 
   .prism-hero {
