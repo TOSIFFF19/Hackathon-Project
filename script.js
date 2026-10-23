@@ -305,21 +305,18 @@ const FACTORS = [
   { key: "interests", label: "interests", weight: 30 },
   { key: "skills", label: "skills", weight: 30 },
   { key: "favouriteSubjects", careerKey: "subjects", label: "favourite subjects", weight: 15 },
-  { key: "educationLevel", label: "education level", weight: 10 },
   { key: "goals", label: "goals", weight: 15 }
 ];
 
+const EDUCATION_SCORE_LIMITATION = "Education level was not scored because career profiles do not contain verified, comparable education-level categories.";
+
 const TERM_ALIASES = {
   "artificial intelligence": "ai",
-  "machine learning": "ai",
   "programming": "coding",
-  "software development": "coding",
-  "web development": "coding",
-  "visual design": "design",
-  "creative work": "creative work",
-  "statistics": "statistics",
-  "data analysis": "data analysis",
-  "helping people make decisions": "helping people make decisions"
+  "programming skills": "coding",
+  "coding skills": "coding",
+  "math": "mathematics",
+  "cyber security": "cybersecurity"
 };
 
 const profileForm = document.querySelector("#profile-form");
@@ -332,14 +329,18 @@ const careerCount = document.querySelector("#career-count");
 const searchStatus = document.querySelector("#search-status");
 
 function normalizeTerm(value) {
-  const normalized = value
+  const normalized = String(value)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLocaleLowerCase()
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, " ")
     .trim()
     .replace(/\s+/g, " ");
 
-  return TERM_ALIASES[normalized] || normalized;
+  return Object.prototype.hasOwnProperty.call(TERM_ALIASES, normalized)
+    ? TERM_ALIASES[normalized]
+    : normalized;
 }
 
 function parseList(value) {
@@ -375,19 +376,6 @@ function readProfile() {
 }
 
 function getFactorValues(profile, factor, career) {
-  if (factor.key === "educationLevel") {
-    const acceptedLevels = asList(
-      career.educationRequirements && career.educationRequirements.entryLevels
-    );
-    if (!acceptedLevels.length) {
-      return null;
-    }
-    return {
-      answers: [profile.educationLevel],
-      careerTerms: acceptedLevels
-    };
-  }
-
   const answers = profile[factor.key] || [];
   const careerTerms = factor.key === "skills"
     ? asList(career.skills && career.skills.required)
@@ -401,38 +389,43 @@ function getFactorValues(profile, factor, career) {
 }
 
 function compareFactor(answers, careerTerms) {
+  const uniqueAnswers = [...new Map(
+    answers.map((answer) => [normalizeTerm(answer), answer])
+  ).values()];
   const availableTerms = new Set(careerTerms.map(normalizeTerm));
-  const matchedAnswers = answers.filter((answer) => availableTerms.has(normalizeTerm(answer)));
+  const matchedAnswers = uniqueAnswers.filter((answer) => availableTerms.has(normalizeTerm(answer)));
 
   return {
-    score: Math.round((matchedAnswers.length / answers.length) * 100),
+    score: uniqueAnswers.length === 0
+      ? 0
+      : Math.round((matchedAnswers.length / uniqueAnswers.length) * 100),
     matchedAnswers,
-    answerCount: answers.length
+    answerCount: uniqueAnswers.length
   };
 }
 
 function scoreCareer(profile, career) {
   let weightedTotal = 0;
-  let includedWeight = 0;
   let answeredWeight = 0;
+  let comparableWeight = 0;
   const factorResults = [];
+  const unavailableCategories = [];
 
   FACTORS.forEach((factor) => {
     const values = getFactorValues(profile, factor, career);
-    const hasAnswer = factor.key === "educationLevel"
-      ? Boolean(profile.educationLevel)
-      : (profile[factor.key] || []).length > 0;
-
-    if (hasAnswer) {
-      answeredWeight += factor.weight;
+    if ((profile[factor.key] || []).length === 0) {
+      return;
     }
+
+    answeredWeight += factor.weight;
     if (!values) {
+      unavailableCategories.push(factor.label);
       return;
     }
 
     const comparison = compareFactor(values.answers, values.careerTerms);
     weightedTotal += comparison.score * factor.weight;
-    includedWeight += factor.weight;
+    comparableWeight += factor.weight;
     factorResults.push({
       key: factor.key,
       label: factor.label,
@@ -441,34 +434,42 @@ function scoreCareer(profile, career) {
     });
   });
 
-  if (includedWeight === 0) {
+  if (comparableWeight === 0) {
     return {
       score: null,
       dataCoverage: 0,
       comparedCategories: 0,
+      unavailableCategories,
       factorResults
     };
   }
 
   return {
-    score: Math.round(weightedTotal / includedWeight),
-    dataCoverage: answeredWeight === 0 ? 0 : Math.round((includedWeight / answeredWeight) * 100),
+    score: Math.round(weightedTotal / comparableWeight),
+    dataCoverage: answeredWeight === 0 ? 0 : Math.round((comparableWeight / answeredWeight) * 100),
     comparedCategories: factorResults.length,
+    unavailableCategories,
     factorResults
   };
 }
 
 function createReasons(match) {
-  if (match.score === null) {
-    return ["There is not enough profile data to compare this career yet."];
-  }
-
-  return match.factorResults.map((factor) => {
+  const reasons = match.factorResults.map((factor) => {
     if (factor.matchedAnswers.length > 0) {
       return `Matched ${factor.label}: ${factor.matchedAnswers.join(", ")}.`;
     }
     return `No exact ${factor.label} overlap in the available profile tags yet.`;
   });
+
+  if (match.unavailableCategories.length > 0) {
+    reasons.push(`Not compared because career profile data is missing for: ${match.unavailableCategories.join(", ")}.`);
+  }
+
+  if (match.score === null && reasons.length === 0) {
+    reasons.push("There is not enough profile data to compare this career yet.");
+  }
+
+  return reasons;
 }
 
 function getPotentialSkillGaps(profile, career) {
@@ -482,6 +483,9 @@ function getPotentialSkillGaps(profile, career) {
 }
 
 function buildRecommendationResponse(profile) {
+  const scoreLimitations = profile.educationLevel
+    ? [EDUCATION_SCORE_LIMITATION]
+    : [];
   const results = CAREER_PROFILES
     .map((career) => {
       const match = scoreCareer(profile, career);
@@ -500,13 +504,17 @@ function buildRecommendationResponse(profile) {
     ));
 
   return {
+    scoreLimitations,
     results: results.map(({ career, match, matchedReasons, potentialSkillGaps }) => ({
       careerId: career.id,
       title: career.title,
       score: match.score,
       dataCoverage: match.dataCoverage,
       comparedCategories: match.comparedCategories,
+      unavailableCategories: match.unavailableCategories,
+      scoreLimitations,
       skillsProvided: Boolean(profile.skills && profile.skills.length > 0),
+      skillRequirementsAvailable: asList(career.skills && career.skills.required).length > 0,
       matchedReasons,
       potentialSkillGaps,
       careerProfile: career
@@ -562,7 +570,12 @@ function renderCareerCard(career, result = null, index = 0) {
         <p><strong>Data coverage:</strong> ${result.dataCoverage}% of the weight for your answered categories was comparable (${result.comparedCategories} ${result.comparedCategories === 1 ? "category" : "categories"} compared).</p>
         <h4>Why it appeared</h4>
         ${renderList(result.matchedReasons)}
-        ${result.skillsProvided
+        ${result.scoreLimitations && result.scoreLimitations.length
+          ? `<h4>Scoring limitations</h4>${renderList(result.scoreLimitations)}`
+          : ""}
+        ${!result.skillRequirementsAvailable
+          ? "<h4>Skill comparison</h4><p>Required skill data is not available for this career profile yet.</p>"
+          : result.skillsProvided
           ? `
             <h4>Potential skills to explore</h4>
             <p>These are listed as required in this profile but were not listed in your answers; this does not mean you lack them.</p>
@@ -683,7 +696,10 @@ profileForm.addEventListener("submit", (event) => {
   recommendationHeading.hidden = false;
 
   if (response.results.length === 0) {
-    recommendationSummary.textContent = "Your answers do not overlap with the current profile data enough to calculate a score. Try adding another category or browse the career profiles below.";
+    recommendationSummary.textContent = [
+      "Your answers do not overlap with the current profile data enough to calculate a score. Try adding another category or browse the career profiles below.",
+      ...response.scoreLimitations
+    ].join(" ");
     recommendationResults.innerHTML = "";
     return;
   }
