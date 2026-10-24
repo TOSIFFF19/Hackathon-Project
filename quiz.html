@@ -36,18 +36,49 @@
     </section>
     <section class="quiz-section section-pad" id="career-finder">
       <div class="container"><div class="section-heading"><span class="eyebrow">YOUR CAREER DISCOVERY</span><h2>Start with what <span class="highlight">interests you.</span></h2><p>You don't need to know your dream career yet. Answer honestly to explore interests, preferred working style, possible strengths, and career directions worth investigating.</p></div>
+        <div class="quiz-start quiz-path-choice" id="quiz-path-choice" hidden>
+          <h2 class="quiz-intro-message">How would you like to explore?</h2>
+          <div class="quiz-path-options">
+            <button class="quiz-path-option" id="choose-discovery" type="button">
+              <span class="quiz-path-icon" aria-hidden="true">✦</span>
+              <strong>Help me discover my career</strong>
+              <span>Answer the general 60-question assessment to explore careers across fields.</span>
+            </button>
+            <button class="quiz-path-option" id="choose-field" type="button">
+              <span class="quiz-path-icon" aria-hidden="true">⌕</span>
+              <strong>Explore a specific field</strong>
+              <span>Choose a field and answer 15 questions tailored to that area.</span>
+            </button>
+          </div>
+        </div>
         <div class="quiz-start" id="quiz-intro" hidden>
           <h2 class="quiz-intro-message">Let's figure you out. 🧩</h2>
           <p>Builder? Creator? Problem-solver? Maybe something unexpected.</p>
           <button class="button button-primary" id="quiz-intro-next" type="button">Take the quiz <span class="button-arrow" aria-hidden="true">→</span></button>
+          <button class="quiz-path-back" id="general-intro-back" type="button">← Back to choices</button>
+        </div>
+        <div class="quiz-start field-selection" id="field-selection" hidden>
+          <h2 class="quiz-intro-message">Choose a field to explore</h2>
+          <p>Your choice sets the topic, not your score. Your answers determine the career matches.</p>
+          <div class="field-choice-grid" id="field-choice-grid"></div>
+          <button class="quiz-path-back" id="not-sure-discover" type="button">Not sure yet? Help me discover my career →</button>
+          <button class="button button-outline" id="field-selection-back" type="button">← Back to choices</button>
+        </div>
+        <div class="quiz-start selected-field-intro" id="selected-field-intro" hidden>
+          <p class="eyebrow" id="selected-field-eyebrow"></p>
+          <h2 class="quiz-intro-message" id="selected-field-title"></h2>
+          <p id="selected-field-description"></p>
+          <button class="button button-primary" id="start-field-quiz" type="button">Start the 15-question quiz <span class="button-arrow" aria-hidden="true">→</span></button>
+          <button class="button button-outline" id="change-selected-field" type="button">Choose a different field</button>
         </div>
         <div class="quiz-start" id="quiz-start"><button class="button button-primary" id="start-quiz" type="button">Start the 60-question quiz <span class="button-arrow" aria-hidden="true">→</span></button><p>60 short statements · 5-point agreement scale · go back any time to change an answer.</p></div>
         <form class="quiz-panel" id="career-quiz" hidden novalidate>
+          <p class="selected-field-label" id="quiz-field-context" hidden></p>
           <div class="quiz-progress-row"><span class="quiz-progress-label" id="quiz-progress-label" aria-live="polite">Question 1 of 60</span><span class="quiz-progress-hint">Choose one rating to continue</span></div>
           <progress class="quiz-progress" id="quiz-progress" max="60" value="1" aria-label="Quiz progress"></progress>
           <div id="quiz-question" class="quiz-question" role="group" aria-labelledby="quiz-question-title"></div>
           <p class="quiz-error" id="quiz-error" role="alert" hidden>Please select a rating to continue.</p>
-          <div class="quiz-actions"><button class="button button-outline" id="quiz-back" type="button">← Back</button></div>
+          <div class="quiz-actions"><button class="button button-outline" id="quiz-back" type="button">← Back</button><button class="button button-outline" id="quiz-change-field" type="button" hidden>Change field</button></div>
           <p class="quiz-disclaimer">Scale: Strongly Disagree · Disagree · Neutral / Not Sure · Agree · Strongly Agree. Answers describe your preferences today—not verified ability or a clinical assessment.</p>
         </form>
       </div>

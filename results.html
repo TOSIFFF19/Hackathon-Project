@@ -18,19 +18,30 @@
   </nav></header>
   <main><section class="quiz-section section-pad"><div class="container">
     <div class="section-heading"><span class="eyebrow">A STARTING POINT, NOT A FINAL ANSWER</span><h1>Your career discovery summary</h1><p>Explore your results as a starting point for reflection—not a measure of ability or a prediction of success.</p></div>
-    <div class="empty-state" id="results-empty" hidden><p>Complete the 60-question quiz to see personalized career matches and scores.</p><a class="button button-primary" href="quiz.html?start=1">Go to the career quiz <span aria-hidden="true">→</span></a></div>
+    <div class="empty-state" id="results-empty" hidden><p>Complete a career assessment to see career directions based on your responses.</p><a class="button button-primary" href="quiz.html?start=1">Start a career assessment <span aria-hidden="true">→</span></a></div>
     <section class="results-dashboard" id="results-dashboard" aria-labelledby="results-title" hidden>
       <div class="results-heading"><span class="eyebrow">A STARTING POINT, NOT A FINAL ANSWER</span><h2 id="results-title">Your career discovery summary</h2><p id="recommendation-summary" role="status" aria-live="polite"></p></div>
+      <section class="primary-career-hero" id="primary-recommendation" aria-labelledby="primary-career-title">
+        <div id="primary-career-content"></div>
+      </section>
+      <section class="primary-roadmap-section" id="primary-roadmap" aria-labelledby="primary-roadmap-title">
+        <div class="results-heading"><span class="eyebrow">A PRACTICAL NEXT STEP</span><h3 id="primary-roadmap-title">Start exploring this path</h3></div>
+        <div class="primary-roadmap-content" id="primary-roadmap-content"></div>
+      </section>
+      <section class="related-careers-section" id="related-careers-section" aria-labelledby="related-careers-title">
+        <div class="results-heading"><span class="eyebrow">OTHER DIRECTIONS</span><h3 id="related-careers-title">Other careers worth exploring</h3><p>These are the next highest-scoring profiles with usable data. Scores describe interest alignment, not ability or predicted success.</p></div>
+        <div class="related-career-list" id="related-career-results" aria-live="polite"></div>
+      </section>
       <section class="results-insights" aria-label="Visual summary of your quiz responses">
         <article class="dashboard-panel insight-panel">
           <div class="insight-heading"><div><span class="eyebrow">INTEREST SNAPSHOT</span><h3>Your response profile</h3></div><span class="insight-count" id="answered-count"></span></div>
-          <p class="insight-description">These bars summarize your average agreement for selected interest areas. 50 is neutral; the scores reflect preferences, not ability.</p>
+          <p class="insight-description">These bars summarize average agreement for mapped interest areas. 50 is neutral; scores reflect preferences, not ability.</p>
           <div class="interest-score-list" id="interest-score-bars"></div>
           <p class="chart-footnote">Score formula: ((average rating − 1) ÷ 4) × 100. Neutral maps to 50.</p>
         </article>
         <article class="dashboard-panel insight-panel">
           <div class="insight-heading"><div><span class="eyebrow">YOUR ANSWER PATTERN</span><h3>Ratings across the scale</h3></div></div>
-          <p class="insight-description">Number of your answers at each rating across all statements. This chart describes your responses only.</p>
+          <p class="insight-description">Number of answers at each rating in this assessment. This chart describes your responses only.</p>
           <div class="rating-chart" id="rating-distribution" role="img" aria-label="Distribution of your ratings across all quiz statements"></div>
           <div class="rating-legend" aria-hidden="true"><span>1 · Strongly disagree</span><span>2 · Disagree</span><span>3 · Neutral</span><span>4 · Agree</span><span>5 · Strongly agree</span></div>
         </article>
@@ -40,14 +51,12 @@
         <article class="dashboard-panel"><h3>Skills to develop</h3><div id="development-results"></div></article>
         <article class="dashboard-panel"><h3>Your preferred work style</h3><div id="workstyle-results"></div></article>
       </div>
-      <div class="results-heading"><h3>Your possible career directions</h3><p>Each interest dimension averages the ratings (1–5) of statements mapped to it, then converts that mean using ((mean − 1) ÷ 4) × 100. Neutral maps to 50, not a weakness. Career scores average the mapped dimension percentages; when profile tags are comparable, the score is 70% quiz and 30% profile overlap. The profile component compares provided interests, skills, subjects, and goals with tags in each career profile. These are exploratory preferences—not ability measures or success odds.</p></div>
-      <div class="career-grid recommendation-grid" id="recommendation-results" aria-live="polite"></div>
-      <section class="alternative-section" id="alternative-section"><div class="results-heading"><h3>Other directions to explore</h3><p>These are different career profiles from across the explorer; browse them with curiosity, not as ranked matches.</p></div><div class="career-grid" id="alternative-results"></div></section>
       <article class="dashboard-panel reflection-panel"><h3>Questions to reflect on</h3><ul><li>Which suggested activity would you like to try first?</li><li>Would you enjoy the day-to-day tasks involved in this career?</li><li>What would you like to learn more about?</li><li>Who could you ask for advice, such as a trusted teacher or counsellor?</li></ul></article>
-      <div class="results-actions"><a class="button button-outline" href="quiz.html?review=1">Review my answers</a><a class="button button-primary" href="quiz.html?restart=1">Start over</a><a class="button button-outline" href="roadmap.html">Explore a learning roadmap</a></div>
-      <p class="matching-note">These exploratory suggestions are not guarantees or professional counselling. Discuss important choices with a trusted teacher, guardian, or qualified counsellor.</p>
+      <div class="results-actions"><a class="button button-outline" href="quiz.html?review=1">Review my answers</a><a class="button button-primary" href="quiz.html?restart=1">Start over</a><a class="button button-outline" id="primary-roadmap-link" href="careers.html">Browse career profiles</a></div>
+      <p class="matching-note">The score averages mapped interest and profile-overlap data when available. It is not a probability of success, an aptitude measure, or professional advice. Career details and requirements should be checked with qualified professionals and official sources.</p>
     </section>
   </div></section></main>
+  <dialog class="career-detail-dialog" id="career-detail-dialog" aria-labelledby="career-dialog-title"></dialog>
   <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="index.html" aria-label="Spectra home"><span class="brand-mark" aria-hidden="true"><img class="brand-logo-light" src="logo-light.jpeg" alt=""><img class="brand-logo-dark" src="logo-dark2.jpg" alt=""></span><span>Spectra</span></a><p>Helping you take the first step toward what’s next.</p><a class="footer-top-link" href="about.html">How it works</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> Spectra. Made for curious minds.</span><span>Explore with curiosity. Choose with confidence.</span></div></footer>
   <script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2026/10/23/18/20261023184047-CG2Y98YD.js" defer></script>

@@ -723,6 +723,130 @@ summary:focus-visible {
   letter-spacing: -0.04em;
 }
 
+.quiz-path-options,
+.field-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 22px 0;
+  text-align: left;
+}
+
+.quiz-path-option,
+.field-choice {
+  display: grid;
+  min-width: 0;
+  gap: 9px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  transition: border-color 150ms ease, transform 150ms ease, background-color 150ms ease;
+}
+
+.quiz-path-option {
+  cursor: pointer;
+}
+
+.quiz-path-option:hover,
+.field-choice:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: var(--green);
+}
+
+.quiz-path-option:focus-visible,
+.field-choice:focus-visible,
+.quiz-path-back:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.quiz-path-icon,
+.field-choice-icon {
+  color: var(--teal);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.quiz-path-option strong,
+.field-choice strong {
+  font-family: var(--heading-font);
+  font-size: 15px;
+}
+
+.quiz-path-option > span:last-child,
+.field-choice > span:nth-last-child(2) {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.field-choice {
+  align-content: start;
+}
+
+.field-choice:not(:disabled) {
+  cursor: pointer;
+}
+
+.field-choice:disabled {
+  opacity: 0.7;
+}
+
+.field-choice-status {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.field-choice-unavailable {
+  border-style: dashed;
+}
+
+.selected-field-intro .eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.selected-field-intro .button + .button {
+  margin: 10px 0 0 8px;
+}
+
+.field-selection > .button {
+  margin-top: 4px;
+}
+
+.quiz-path-back {
+  display: inline-flex;
+  margin-top: 14px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.selected-field-label {
+  display: inline-flex;
+  margin: 0 0 16px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--sage);
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .quiz-progress-row {
   display: flex;
   justify-content: space-between;
@@ -1886,6 +2010,15 @@ summary:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .quiz-path-options,
+  .field-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-field-intro .button + .button {
+    margin: 12px 0 0;
+  }
+
   .results-insights {
     grid-template-columns: 1fr;
   }
@@ -2091,5 +2224,390 @@ summary:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+.primary-career-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.32fr);
+  gap: 28px;
+  align-items: center;
+  padding: clamp(22px, 4vw, 42px);
+  border: 1px solid #b8d5c1;
+  border-radius: 10px;
+  background: linear-gradient(120deg, #edf5ee 0%, #fff 64%);
+}
+
+.primary-career-copy h3 {
+  margin: 8px 0 12px;
+  font-family: var(--heading-font);
+  font-size: clamp(27px, 4vw, 42px);
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+
+.primary-career-summary {
+  max-width: 720px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.primary-career-reasons {
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.primary-career-reasons h4,
+.roadmap-detail-panel h4,
+.career-dialog-body h3 {
+  margin: 0 0 9px;
+  color: var(--ink);
+  font-family: var(--heading-font);
+  font-size: 16px;
+}
+
+.primary-career-reasons ul,
+.roadmap-detail-panel ul,
+.career-dialog-body ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 20px;
+}
+
+.primary-career-actions,
+.career-dialog-actions,
+.career-card-actions,
+.related-career-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.primary-career-score {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+
+.primary-score-label,
+.career-dialog-fit-label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.primary-career-score > strong {
+  display: block;
+  margin: 10px 0 14px;
+  color: var(--green-dark);
+  font-family: var(--heading-font);
+  font-size: 44px;
+  letter-spacing: -0.05em;
+}
+
+.primary-career-score > strong small {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.primary-score-track,
+.career-dialog-fit-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dce7de;
+}
+
+.primary-score-track span,
+.career-dialog-fit-track span {
+  display: block;
+  width: var(--score-width, var(--fit-width, 0%));
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #39886d, #82b86c);
+}
+
+.primary-career-score p,
+.career-dialog-fit p,
+.profile-data-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.primary-roadmap-section,
+.related-careers-section {
+  margin-top: 30px;
+}
+
+.primary-roadmap-content {
+  display: grid;
+  gap: 14px;
+}
+
+.primary-roadmap-overview {
+  padding: 18px 20px;
+  border-left: 3px solid var(--green);
+  background: #f1f6f1;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.primary-roadmap-overview p,
+.roadmap-detail-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.primary-roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.roadmap-detail-panel {
+  min-width: 0;
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.roadmap-detail-panel h5 {
+  margin: 14px 0 5px;
+  font-size: 12px;
+}
+
+.roadmap-detail-panel p,
+.roadmap-detail-panel li {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.primary-learning-steps {
+  border-color: #c3d8c6;
+  background: #fbfdfb;
+}
+
+.related-career-list {
+  display: grid;
+  gap: 10px;
+}
+
+.related-career-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.related-career-card h4 {
+  margin: 6px 0;
+  font-family: var(--heading-font);
+  font-size: 16px;
+}
+
+.related-career-card p:not(.eyebrow) {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.related-career-card .eyebrow,
+.career-card-field {
+  margin: 0;
+  color: var(--green-dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.career-card-actions {
+  margin-top: 18px;
+}
+
+.career-card-actions .button,
+.related-career-actions .button {
+  min-height: 38px;
+  padding: 0 12px;
+  font-size: 11px;
+}
+
+.related-career-actions {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+.career-detail-dialog {
+  width: min(720px, calc(100% - 28px));
+  max-width: 720px;
+  max-height: min(86vh, 780px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 28%);
+}
+
+.career-detail-dialog::backdrop {
+  background: rgb(9 18 13 / 64%);
+  backdrop-filter: blur(3px);
+}
+
+.career-dialog-header,
+.career-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.career-dialog-header h2 {
+  margin: 5px 0 0;
+  font-family: var(--heading-font);
+  font-size: clamp(20px, 4vw, 28px);
+  line-height: 1.2;
+}
+
+.career-dialog-header .eyebrow {
+  margin: 0;
+}
+
+.career-dialog-close {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.career-dialog-body {
+  max-height: calc(min(86vh, 780px) - 145px);
+  overflow-y: auto;
+  padding: 20px 22px;
+}
+
+.career-dialog-body > section {
+  margin-top: 20px;
+}
+
+.career-dialog-summary {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.career-dialog-body p,
+.career-dialog-body li {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.career-dialog-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.career-dialog-columns section {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.career-dialog-actions {
+  justify-content: flex-start;
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+}
+
+[data-theme="dark"] .primary-career-hero {
+  border-color: #315842;
+  background: linear-gradient(120deg, #101c14, #080b09 68%);
+}
+
+[data-theme="dark"] .primary-career-score,
+[data-theme="dark"] .roadmap-detail-panel,
+[data-theme="dark"] .related-career-card,
+[data-theme="dark"] .career-detail-dialog,
+[data-theme="dark"] .career-dialog-close {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+[data-theme="dark"] .primary-roadmap-overview,
+[data-theme="dark"] .primary-learning-steps {
+  border-color: #315842;
+  background: #101711;
+}
+
+[data-theme="dark"] .primary-score-track,
+[data-theme="dark"] .career-dialog-fit-track {
+  background: #2b342e;
+}
+
+@media (max-width: 700px) {
+  .primary-career-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .primary-career-score {
+    max-width: none;
+  }
+
+  .primary-roadmap-grid,
+  .career-dialog-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .related-career-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .related-career-actions {
+    justify-content: flex-start;
+  }
+
+  .career-dialog-body {
+    max-height: calc(86vh - 150px);
+  }
+
+  .career-dialog-header,
+  .career-dialog-body,
+  .career-dialog-actions {
+    padding-right: 16px;
+    padding-left: 16px;
   }
 }
