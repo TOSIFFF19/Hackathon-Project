@@ -135,8 +135,7 @@ summary:focus-visible {
   display: none;
 }
 
-[data-theme="dark"] .brand-mark img.brand-logo-dark,
-.footer-brand .brand-mark img.brand-logo-dark {
+[data-theme="dark"] .brand-mark img.brand-logo-dark {
   display: block;
 }
 
